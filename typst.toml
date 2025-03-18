@@ -1,0 +1,17 @@
+[package]
+name = "fiit-thesis"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Sasetz <https://github.com/sasetz>", "Illia Chaban <https://github.com/ic-it>"]
+license = "MIT"
+description = "An unofficial template for a thesis at the FIIT, Slovak University of Technology."
+repository = "https://github.com/sasetz/fiit_template"
+keywords = ["fiit", "stu"]
+categories = ["thesis"]
+disciplines = ["education"]
+exclude = ["build/template.pdf"]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
