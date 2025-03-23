@@ -24,11 +24,18 @@
   body,
 ) = {
   // TODO: add an enum to select which type of thesis this is
+  // TODO: add an option to add extra supervisors
+  // TODO: add an option to mimic the AIS cover and title pages
+
   // Set the document's basic properties.
   set document(author: author, title: title)
   set text(font: "New Computer Modern", lang: lang)
   show math.equation: set text(weight: 400)
   set heading(numbering: "1.1")
+  show heading: it => [
+    #it
+    #v(0.75em)
+  ]
   set bibliography(style: "iso-690-numeric")
 
   let locale = localization(lang: lang)
@@ -36,9 +43,10 @@
 
   assert(abstract.keys().contains("sk"), message: "Please provide an abstract in Slovak language")
 
-  // TODO: add an option to add extra supervisors
   let fields = slovak.title-page.fields
   let values = slovak.title-page.values
+
+  // FIXME: the cover sheet needs to be in English as well
 
   // cover sheet
   if not disable_cover {
@@ -114,6 +122,8 @@
   pagebreak()
   pagebreak() // intentional empty page
 
+  // FIXME: actually, everyone needs an abstract in both languages
+
   // if the language is not Slovak, the university requires students to provide
   // a Slovak version of the abstract
   if lang != "sk" {
@@ -147,7 +157,7 @@
   pagebreak() // intentional empty page
 
   // table of contents
-  // TODO: make it use a different kind of numbering (with Roman numerals)
+  // TODO: make it use a different kind of page numbering (with Roman numerals)
   // TODO: separate appendices into their own "category" of the contents
   // TODO: make an option to add table of contents for images, tables,
   // abbreviations and definitions
@@ -176,5 +186,7 @@
     ]
   )
 
+  // TODO: add Slovak resumé for non-Slovak theses
+  // TODO: add the plan of work as a required appendix
   body
 }

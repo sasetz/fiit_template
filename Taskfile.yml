@@ -52,3 +52,4 @@ tasks:
     desc: "Uninstall the template from the @preview namespace cache"
     cmds:
       - rm ~/.local/share/typst/packages/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
+
