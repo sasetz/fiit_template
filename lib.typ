@@ -5,7 +5,7 @@
   // theme of your thesis
   title: "Záverečná práca",
   // a dictionary of type: <language_code>: <abstract>. "sk" value is always required
-  abstract: (                 
+  abstract: (
     sk: lorem(150),
     en: lorem(150),
   ), // abstract
@@ -32,16 +32,17 @@
   set text(font: "New Computer Modern", lang: lang)
   show math.equation: set text(weight: 400)
   set heading(numbering: "1.1")
-  show heading: it => [
-    #it
-    #v(0.75em)
-  ]
+  show heading: it => {
+    it
+    v(0.75em)
+  }
   set bibliography(style: "iso-690-numeric")
 
   let locale = localization(lang: lang)
   let slovak = localization(lang: "sk")
 
-  assert(abstract.keys().contains("sk"), message: "Please provide an abstract in Slovak language")
+  assert(abstract.keys().contains("sk") and abstract.keys().contains("en"),
+    message: "Please provide an abstract in both Slovak and English language")
 
   let fields = slovak.title-page.fields
   let values = slovak.title-page.values
@@ -60,7 +61,7 @@
         #slovak.faculty
       ],
       footer: (
-        (left: fields.supervisor, right: "Ing. Ján Mach"),
+        (left: fields.supervisor, right: supervisor),
       ),
       date: [#values.month.may #datetime.today().display("[year]")]
     )
@@ -122,24 +123,20 @@
   pagebreak()
   pagebreak() // intentional empty page
 
-  // FIXME: actually, everyone needs an abstract in both languages
-
-  // if the language is not Slovak, the university requires students to provide
-  // a Slovak version of the abstract
-  if lang != "sk" {
-    abstract-page(
-      title: slovak.annotation.title,
-      university: slovak.university,
-      faculty: slovak.faculty,
-      program: (left: slovak.title-page.fields.program, right: slovak.title-page.values.program.informatics),
-      author: (left: slovak.annotation.author, right: author),
-      thesis: (left: slovak.title-page.values.thesis.bachelor, right: title),
-      supervisor: (left: slovak.title-page.fields.supervisor, right: supervisor),
-      date: [#slovak.title-page.values.month.may #datetime.today().display("[year]")],
-      abstract.sk
-    )
-    pagebreak() // intentional empty page
-  }
+  // even if the language is Slovak, the university requires students to provide
+  // both versions of the abstract
+  abstract-page(
+    title: slovak.annotation.title,
+    university: slovak.university,
+    faculty: slovak.faculty,
+    program: (left: slovak.title-page.fields.program, right: slovak.title-page.values.program.informatics),
+    author: (left: slovak.annotation.author, right: author),
+    thesis: (left: slovak.title-page.values.thesis.bachelor, right: title),
+    supervisor: (left: slovak.title-page.fields.supervisor, right: supervisor),
+    date: [#slovak.title-page.values.month.may #datetime.today().display("[year]")],
+    abstract.sk
+  )
+  pagebreak() // intentional empty page
 
   // locale abstract
   abstract-page(
