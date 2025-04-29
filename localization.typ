@@ -42,6 +42,10 @@
     contents: (
       title: "Contents",
     ),
+
+    chapter: (
+      title: "Chapter",
+    ),
   ),
 
   sk: (
@@ -86,6 +90,10 @@
 
     contents: (
       title: "Obsah",
+    ),
+
+    chapter: (
+      title: "Kapitola",
     ),
   ),
 )

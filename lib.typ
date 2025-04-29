@@ -28,22 +28,39 @@
   // TODO: add an option to add extra supervisors
   // TODO: add an option to mimic the AIS cover and title pages
 
+  let locale = localization(lang: lang)
+  let slovak = localization(lang: "sk")
+
   // Set the document's basic properties.
   set document(author: author, title: title)
   set text(font: "New Computer Modern", lang: lang)
   show math.equation: set text(weight: 400)
   set heading(numbering: "1.1")
   show heading: it => {
+    v(1em)
     it
     v(0.75em)
   }
+  show heading.where(level: 1) : it => {
+    set text(1.6em)
+    set par(first-line-indent: 0em)
+    pagebreak()
+
+    if it.numbering != none {
+      block(height: 5em)
+      [#locale.chapter.title #counter(heading).get().at(0)]
+      v(.5em)
+    }
+    it.body
+    v(1.8em)
+  }
   set bibliography(style: "iso-690-numeric")
 
-  let locale = localization(lang: lang)
-  let slovak = localization(lang: "sk")
-
+  // asserts
   assert(abstract.keys().contains("sk") and abstract.keys().contains("en"),
     message: "Please provide an abstract in both Slovak and English language")
+  assert(locale.title-page.values.thesis.keys().contains(thesis),
+    message: "The thesis type you provided is not supported. Please contact the authors or choose one of the supported types")
 
   let fields = slovak.title-page.fields
   let values = slovak.title-page.values
@@ -179,9 +196,11 @@
     margin: 3cm,
     header: [
       #context{
-        emph(hydra(1))
-        v(-1em)
-        line(length: 100%)
+        if counter(heading).get().at(0) != 0 {
+          emph(hydra(1))
+          v(-1em)
+          line(length: 100%)
+        }
       }
     ]
   )
@@ -190,3 +209,8 @@
   // TODO: add the plan of work as a required appendix
   body
 }
+
+#let appendix-numbering(first, ..) = [
+  #numbering("A.1", counter(heading).get().at(0))-#first
+]
+

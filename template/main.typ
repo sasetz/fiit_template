@@ -1,7 +1,8 @@
 #import "@preview/fiit-thesis:0.1.0": *
 
 #show: fiit-thesis.with(
-  title: "Záverečná práca",
+  title: "Moja záverečná práca",
+  thesis: "bp2",
   author: "Jožko Mrkvička",
   supervisor: "prof. Jožko Mrkvička",
   abstract: (
@@ -28,15 +29,45 @@
 
 This is an example of how to reference a paper in your thesis @riscv.
 
-#pagebreak(weak: true)
-= Appendix A: Source code
-
 #lorem(150)
 
-#pagebreak()
+== Another subject
 
-#pagebreak()
+#lorem(100)
 
-// has the right format
+// has the right format, goes before appendices
 #bibliography("citations.bib")
+#pagebreak(weak: true)
+
+// resume.typ
+#set heading(numbering: none)
+#pagebreak()
+= Resumé
+// resume.typ
+
+#lorem(250)
+
+// appendix.typ
+#set page(numbering: appendix-numbering)
+#set heading(numbering: "A.1")
+#show heading.where(level: 1) : it => {
+  set text(1.6em)
+  set par(first-line-indent: 0em)
+  pagebreak()
+  block(height: 5em)
+  [*Dodatok #numbering("A", counter(heading).get().at(0))*]
+  v(.5em)
+  it.body
+  v(1.8em)
+  counter(page).update(1)
+}
+#counter(heading).update(0)
+#counter(page).update(1)
+// appendix.typ
+
+= Source code
+#lorem(150)
+#pagebreak()
+
+#pagebreak()
 
