@@ -172,10 +172,20 @@
   pagebreak() // intentional empty page
 
   // table of contents
-  // TODO: separate appendices into their own "category" of the contents
   // TODO: make an option to add table of contents for images, tables,
   // abbreviations and definitions
   set page(numbering: "i") // Roman numbering until the end of the contents
+  show outline.entry.where(
+    level: 1
+  ): it => {
+    set block(above: 1.8em)
+    show text: it => strong(it)
+    link(
+      it.element.location(),
+      it.indented(it.prefix(), [#it.body()#h(1fr)#it.page()]),
+    )
+  }
+  show outline.entry: set block(above: 1.2em)
   outline(depth: 3, indent: auto)
   set page(numbering: none)
   pagebreak()
