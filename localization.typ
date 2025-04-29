@@ -15,8 +15,8 @@
           may: "May",
         ),
         thesis: (
-          bachelor: "Bachelor thesis",
-          diploma: "Diploma thesis",
+          bp2: "Bachelor thesis",
+          dp3: "Diploma thesis",
           bp1: "Interim report on BP1",
           dp1: "Interim report on DP1",
           dp2: "Interim report on DP2",
@@ -28,8 +28,8 @@
           informatics: "Informatics",
         ),
         department: (
-          upai: "070200 Institute of Computer Engineering and Applied Informatics",
-          iise: "070400 Institute of Informatics, Information Systems and Software Engineering",
+          upai: "Institute of Computer Engineering and Applied Informatics",
+          iise: "Institute of Informatics, Information Systems and Software Engineering",
         ),
       ),
     ),
@@ -60,8 +60,8 @@
           may: "Máj",
         ),
         thesis: (
-          bachelor: "Bakalárska práca",
-          diploma: "Diplomová práca",
+          bp2: "Bakalárska práca",
+          dp3: "Diplomová práca",
           bp1: "Priebežná správa o riešení BP1",
           dp1: "Priebežná správa o riešení DP1",
           dp2: "Priebežná správa o riešení DP2",
@@ -73,8 +73,8 @@
           informatics: "Informatika",
         ),
         department: (
-          upai: "070200 Ústav informatiky, informačných systémov a softvérového inžinierstva",
-          iise: "070400 Ústav počítačového inžinierstva a aplikovanej informatiky",
+          upai: "Ústav informatiky, informačných systémov a softvérového inžinierstva",
+          iise: "Ústav počítačového inžinierstva a aplikovanej informatiky",
         ),
       ),
     ),

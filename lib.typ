@@ -4,6 +4,8 @@
 #let fiit-thesis(
   // theme of your thesis
   title: "Záverečná práca",
+  // type of the thesis: "bp1", "bp2", "dp1", "dp2", "dp3"
+  thesis: "bp2",
   // a dictionary of type: <language_code>: <abstract>. "sk" value is always required
   abstract: (
     sk: lorem(150),
@@ -23,7 +25,6 @@
   disable_cover: false,
   body,
 ) = {
-  // TODO: add an enum to select which type of thesis this is
   // TODO: add an option to add extra supervisors
   // TODO: add an option to mimic the AIS cover and title pages
 
@@ -55,7 +56,7 @@
       id: id,
       author: author,
       title: title,
-      type: values.thesis.bachelor,
+      type: values.thesis.at(thesis),
       header: [
         #slovak.university \
         #slovak.faculty
@@ -71,7 +72,7 @@
     id: id,
     author: author,
     title: title,
-    type: values.thesis.bachelor,
+    type: values.thesis.at(thesis),
     header: [
       #slovak.university \
       #slovak.faculty
@@ -131,7 +132,7 @@
     faculty: slovak.faculty,
     program: (left: slovak.title-page.fields.program, right: slovak.title-page.values.program.informatics),
     author: (left: slovak.annotation.author, right: author),
-    thesis: (left: slovak.title-page.values.thesis.bachelor, right: title),
+    thesis: (left: slovak.title-page.values.thesis.at(thesis), right: title),
     supervisor: (left: slovak.title-page.fields.supervisor, right: supervisor),
     date: [#slovak.title-page.values.month.may #datetime.today().display("[year]")],
     abstract.sk
@@ -145,7 +146,7 @@
     faculty: locale.faculty,
     program: (left: locale.title-page.fields.program, right: locale.title-page.values.program.informatics),
     author: (left: locale.annotation.author, right: author),
-    thesis: (left: locale.title-page.values.thesis.bachelor, right: title),
+    thesis: (left: locale.title-page.values.thesis.at(thesis), right: title),
     supervisor: (left: locale.title-page.fields.supervisor, right: supervisor),
     date: [#locale.title-page.values.month.may #datetime.today().display("[year]")],
     abstract.at(lang)
@@ -154,13 +155,15 @@
   pagebreak() // intentional empty page
 
   // table of contents
-  // TODO: make it use a different kind of page numbering (with Roman numerals)
   // TODO: separate appendices into their own "category" of the contents
   // TODO: make an option to add table of contents for images, tables,
   // abbreviations and definitions
+  set page(numbering: "i") // Roman numbering until the end of the contents
   outline(depth: 3, indent: auto)
+  set page(numbering: none)
   pagebreak()
   pagebreak()
+  counter(page).update(1) // start of the main section
 
 
   // main body
