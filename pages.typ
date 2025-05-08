@@ -1,4 +1,7 @@
 #import "_pkgs.typ": hydra.hydra
+// TODO: add readme.md
+// TODO: add instruction for how to reference an appendix or make a show rule
+// for the reference, so that it automatically adds appropriate name
 
 #let abstract-page(
   title: "Anotácia",
@@ -57,17 +60,17 @@
   ),
 ) = {
   // top header
-  align(center, 
+  align(center,
     text(1.3em, header)
   )
   // ID display
   pad(
     top: 1.2em,
-    align(center, 
+    align(center,
       text(1.3em, id)
     )
   )
-  
+
   v(15em, weak: false)
 
   // author information
@@ -79,12 +82,12 @@
   )
   // title of the paper
   v(1.2em, weak: false)
-  align(center, 
+  align(center,
     text(1.3em, title)
   )
   // type of the paper
   v(1.2em, weak: false)
-  align(center, 
+  align(center,
     text(1.2em, type)
   )
 
