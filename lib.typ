@@ -23,6 +23,9 @@
   disable_placeholder: false,
   // set to "true" to disable the first (cover) sheet
   disable_cover: false,
+  // remove everything except the text to count how many regular pages of text
+  // you have
+  regular_pages: false,
   body,
 ) = {
   // TODO: add an option to add extra supervisors
@@ -31,28 +34,43 @@
   let locale = localization(lang: lang)
   let slovak = localization(lang: "sk")
 
+  show pagebreak: it => if regular_pages {none} else {it}
+  show bibliography: it => if regular_pages {none} else {it}
+  show outline: it => if regular_pages {none} else {it}
+  show figure: it => if regular_pages {none} else {it}
+  show colbreak: it => if regular_pages {none} else {it}
+
+  show list.item: it => if regular_pages {it.body} else {it}
+  show list: it => if regular_pages {it.body} else {it}
+  show columns: it => if regular_pages {it.body} else {it}
+  show align: it => if regular_pages {it.body} else {it}
+
   // Set the document's basic properties.
   set document(author: author, title: title)
   set text(font: "New Computer Modern", lang: lang)
   show math.equation: set text(weight: 400)
   set heading(numbering: "1.1")
   show heading: it => {
-    v(1em)
-    it
-    v(0.75em)
+    if not regular_pages {
+      v(1em)
+      it
+      v(0.75em)
+    }
   }
   show heading.where(level: 1) : it => {
-    set text(1.6em)
-    set par(first-line-indent: 0em)
-    pagebreak()
+    if not regular_pages {
+      set text(1.6em)
+      set par(first-line-indent: 0em)
+      pagebreak()
 
-    if it.numbering != none {
-      block(height: 5em)
-      [#locale.chapter.title #counter(heading).get().at(0)]
-      v(.5em)
+      if it.numbering != none {
+        block(height: 5em)
+        [#locale.chapter.title #counter(heading).get().at(0)]
+        v(.5em)
+      }
+      it.body
+      v(1.8em)
     }
-    it.body
-    v(1.8em)
   }
   set bibliography(style: "iso-690-numeric")
 
@@ -68,7 +86,7 @@
   // FIXME: the cover sheet needs to be in English as well
 
   // cover sheet
-  if not disable_cover {
+  if not disable_cover and not regular_pages {
     title-page(
       id: id,
       author: author,
@@ -85,27 +103,29 @@
     )
   }
   // title page
-  title-page(
-    id: id,
-    author: author,
-    title: title,
-    type: values.thesis.at(thesis),
-    header: [
-      #locale.university \
-      #locale.faculty
-    ],
-    footer: (
-      (left: fields.program, right: values.program.informatics),
-      (left: fields.field, right: values.field.informatics),
-      (left: fields.department, right: values.department.upai),
-      (left: fields.supervisor, right: supervisor),
-    ),
-    date: [#values.month.may #datetime.today().display("[year]")]
-  )
+  if not regular_pages {
+    title-page(
+      id: id,
+      author: author,
+      title: title,
+      type: values.thesis.at(thesis),
+      header: [
+        #locale.university \
+        #locale.faculty
+      ],
+      footer: (
+        (left: fields.program, right: values.program.informatics),
+        (left: fields.field, right: values.field.informatics),
+        (left: fields.department, right: values.department.upai),
+        (left: fields.supervisor, right: supervisor),
+      ),
+      date: [#values.month.may #datetime.today().display("[year]")]
+    )
+  }
 
   pagebreak() // intentional empty page
 
-  if not disable_placeholder {
+  if not disable_placeholder and not regular_pages {
     page(
       fill: tiling(size: (40pt, 40pt))[
         #place(line(start: (0%, 0%), end: (100%, 100%), stroke: 2pt + red))
@@ -125,49 +145,55 @@
   // cestne vyhlasenie
   // TODO: maybe (MAYBE) consider making the full name appear in the middle
   // below the line
-  v(1fr)
-  text(1.1em)[
-    Čestne vyhlasujem, že som túto prácu vypracoval(a) samostatne, na základe
-    konzultácií a s použitím uvedenej literatúry.
-    #v(1.5em)
-    // TODO: replace this with an appropriate Slovak date replace this with an appropriate Slovak date
-    #datetime.today().display("V Bratislave, [day].[month].[year]")
-    #h(1fr)
-    \.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.
-    #linebreak()
-    #h(1fr)
-    #author
-  ]
+  if not regular_pages {
+    v(1fr)
+    text(1.1em)[
+      Čestne vyhlasujem, že som túto prácu vypracoval(a) samostatne, na základe
+      konzultácií a s použitím uvedenej literatúry.
+      #v(1.5em)
+      // TODO: replace this with an appropriate Slovak date replace this with an appropriate Slovak date
+      #datetime.today().display("V Bratislave, [day].[month].[year]")
+      #h(1fr)
+      \.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.
+      #linebreak()
+      #h(1fr)
+      #author
+    ]
+  }
   pagebreak()
   pagebreak() // intentional empty page
 
   // even if the language is Slovak, the university requires students to provide
   // both versions of the abstract
-  abstract-page(
-    title: slovak.annotation.title,
-    university: slovak.university,
-    faculty: slovak.faculty,
-    program: (left: slovak.title-page.fields.program, right: slovak.title-page.values.program.informatics),
-    author: (left: slovak.annotation.author, right: author),
-    thesis: (left: slovak.title-page.values.thesis.at(thesis), right: title),
-    supervisor: (left: slovak.title-page.fields.supervisor, right: supervisor),
-    date: [#slovak.title-page.values.month.may #datetime.today().display("[year]")],
-    abstract.sk
-  )
+  if not regular_pages {
+    abstract-page(
+      title: slovak.annotation.title,
+      university: slovak.university,
+      faculty: slovak.faculty,
+      program: (left: slovak.title-page.fields.program, right: slovak.title-page.values.program.informatics),
+      author: (left: slovak.annotation.author, right: author),
+      thesis: (left: slovak.title-page.values.thesis.at(thesis), right: title),
+      supervisor: (left: slovak.title-page.fields.supervisor, right: supervisor),
+      date: [#slovak.title-page.values.month.may #datetime.today().display("[year]")],
+      abstract.sk
+    )
+  }
   pagebreak() // intentional empty page
 
   // locale abstract
-  abstract-page(
-    title: locale.annotation.title,
-    university: locale.university,
-    faculty: locale.faculty,
-    program: (left: locale.title-page.fields.program, right: locale.title-page.values.program.informatics),
-    author: (left: locale.annotation.author, right: author),
-    thesis: (left: locale.title-page.values.thesis.at(thesis), right: title),
-    supervisor: (left: locale.title-page.fields.supervisor, right: supervisor),
-    date: [#locale.title-page.values.month.may #datetime.today().display("[year]")],
-    abstract.at(lang)
-  )
+  if not regular_pages {
+    abstract-page(
+      title: locale.annotation.title,
+      university: locale.university,
+      faculty: locale.faculty,
+      program: (left: locale.title-page.fields.program, right: locale.title-page.values.program.informatics),
+      author: (left: locale.annotation.author, right: author),
+      thesis: (left: locale.title-page.values.thesis.at(thesis), right: title),
+      supervisor: (left: locale.title-page.fields.supervisor, right: supervisor),
+      date: [#locale.title-page.values.month.may #datetime.today().display("[year]")],
+      abstract.at(lang)
+    )
+  }
 
   pagebreak() // intentional empty page
 
