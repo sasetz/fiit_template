@@ -62,8 +62,8 @@
   assert(locale.title-page.values.thesis.keys().contains(thesis),
     message: "The thesis type you provided is not supported. Please contact the authors or choose one of the supported types")
 
-  let fields = slovak.title-page.fields
-  let values = slovak.title-page.values
+  let fields = locale.title-page.fields
+  let values = locale.title-page.values
 
   // FIXME: the cover sheet needs to be in English as well
 
@@ -75,8 +75,8 @@
       title: title,
       type: values.thesis.at(thesis),
       header: [
-        #slovak.university \
-        #slovak.faculty
+        #locale.university \
+        #locale.faculty
       ],
       footer: (
         (left: fields.supervisor, right: supervisor),
@@ -91,8 +91,8 @@
     title: title,
     type: values.thesis.at(thesis),
     header: [
-      #slovak.university \
-      #slovak.faculty
+      #locale.university \
+      #locale.faculty
     ],
     footer: (
       (left: fields.program, right: values.program.informatics),
@@ -221,6 +221,8 @@
 }
 
 #let appendix-numbering(first, ..) = [
-  #numbering("A.1", counter(heading).get().at(0))-#first
+  #if counter(heading).get().at(0) != 0 [
+    #numbering("A.1", counter(heading).get().at(0))-#first
+  ]
 ]
 
