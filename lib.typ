@@ -188,8 +188,8 @@
   show outline.entry: set block(above: 1.2em)
   outline(depth: 3, indent: auto)
   set page(numbering: none)
-  pagebreak()
-  pagebreak()
+  v(1fr) // if the page is full, this will be a pagebreak
+  pagebreak(weak: true) // if the page is not full, this will be a pagebreak
   counter(page).update(1) // start of the main section
 
 
@@ -206,11 +206,9 @@
     margin: 3cm,
     header: [
       #context{
-        if counter(heading).get().at(0) != 0 {
-          emph(hydra(1))
-          v(-1em)
-          line(length: 100%)
-        }
+        emph(hydra(1))
+        v(-1em)
+        line(length: 100%)
       }
     ]
   )
