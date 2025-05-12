@@ -39,6 +39,8 @@
       author: "Author",
     ),
 
+    acknowledgment: "Acknowledgment",
+
     contents: (
       title: "Contents",
     ),
@@ -87,6 +89,8 @@
       title: "Anotácia",
       author: "Autor",
     ),
+
+    acknowledgment: "Poďakovanie",
 
     contents: (
       title: "Obsah",

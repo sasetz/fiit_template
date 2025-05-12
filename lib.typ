@@ -19,6 +19,8 @@
   supervisor: "prof. Jožko Mrkvička",
   // supported values: "en", "sk"
   lang: "en",
+  // acknowledgment text
+  acknowledgment: "thank",
   // set to "true" to remove the assignment text placeholder
   disable_placeholder: false,
   // set to "true" to disable the first (cover) sheet
@@ -142,6 +144,22 @@
   pagebreak()
   pagebreak() // intentional empty page
 
+  // acknowledgment
+  if not regular_pages {
+    v(1fr)
+    par(
+      text(1.5em)[
+        *#locale.acknowledgment*
+      ]
+    )
+
+    text(1.1em)[
+      #acknowledgment
+      #v(1.5em)
+    ]
+  }
+  pagebreak()
+  pagebreak() // intentional empty page
   // cestne vyhlasenie
   // TODO: maybe (MAYBE) consider making the full name appear in the middle
   // below the line
