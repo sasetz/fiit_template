@@ -230,7 +230,7 @@
     )
   }
   show outline.entry: set block(above: 1.2em)
-  outline(depth: 3, indent: auto)
+  outline(title: locale.contents.title, depth: 3, indent: auto)
   set page(numbering: none)
   v(1fr) // if the page is full, this will be a pagebreak
   pagebreak(weak: true) // if the page is not full, this will be a pagebreak
@@ -250,9 +250,12 @@
     margin: 3cm,
     header: [
       #context{
-        emph(hydra(1))
-        v(-1em)
-        line(length: 100%)
+        let hdr = hydra(1)
+        if hdr != none {
+          emph(hdr)
+          v(-1em)
+          line(length: 100%)
+        }
       }
     ]
   )

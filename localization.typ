@@ -43,6 +43,9 @@
 
     contents: (
       title: "Contents",
+      tables: "List of tables",
+      figures: "List of figures",
+      abbreviations: "List of abbreviations",
     ),
 
     chapter: (
@@ -94,6 +97,9 @@
 
     contents: (
       title: "Obsah",
+      tables: "Zoznam tabuliek",
+      figures: "Zoznam obrázkov",
+      abbreviations: "Zoznam použitých skratiek",
     ),
 
     chapter: (
