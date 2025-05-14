@@ -1,9 +1,9 @@
 
 # FIIT Thesis Template with Typst
 
----
-
 Status: in development ⚙️
+
+---
 
 This is a Typst template for writing a thesis at the Faculty of Informatics and
 Information Technologies (FIIT) in Slovak Technical University in Bratislava
@@ -12,11 +12,9 @@ Information Technologies (FIIT) in Slovak Technical University in Bratislava
 provided by the faculty, with [this LaTeX template] being the basis for how the
 document looks.
 
-The template is available in these languages: **Slovak**, **English**
+The template is available in these languages: **Slovak** (sk), **English** (en)
 
 # Usage
-
----
 
 You can use [Typst's online editor](https://typst.app/) to edit and display
 your thesis. [Sign up](https://typst.app/signup), sign in and click "Start from
@@ -24,21 +22,21 @@ template". Search for "fiit-thesis" and start writing!
 
 ## Building your thesis locally
 
-0. [Install Typst](https://github.com/typst/typst?tab=readme-ov-file#installation).
+1. [Install Typst](https://github.com/typst/typst?tab=readme-ov-file#installation).
 If you're on Linux, it should be pretty easy.
 
-0. Next, initialize the template using:
+2. Next, initialize the template using:
 
 ```bash
 typst init @preview/fiit-thesis
 ```
 
-0. Start watching the changes of your thesis using:
+3. Start watching the changes of your thesis using:
 ```bash
 typst watch main.typ --watch
 ```
 
-0. Begin writing your thesis!
+4. Begin writing your thesis!
 
 If you're new to Typst, we recommend to start reading the [Typst
 tutorial](https://typst.app/docs/tutorial/).
