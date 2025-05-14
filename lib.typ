@@ -1,7 +1,5 @@
 #import "pages.typ": *
 #import "localization.typ": localization
-// TODO: make a show rule for the reference, so that it automatically adds
-// appropriate name
 // TODO: describe the regular_pages argument and disable_cover in readme
 // TODO: add a proper acknowledgment to the template
 // TODO: GLOBAL: consider breaking down the function into smaller pages to help
@@ -264,8 +262,20 @@
     ]
   )
 
-  // TODO: add Slovak resumé for non-Slovak theses
-  // TODO: add the plan of work as a required appendix
+  context {
+    let resume = query(
+      heading.where(level: 1).and(<resume>)
+    )
+    let plan-of-work = query(
+      heading.where(level: 1).and(<plan-of-work>)
+    )
+    assert(resume.len() == 1 and resume.at(0).numbering == none or lang == "sk",
+      message: "Could not find <resume> label in your work. Please create a resume chapter in Slovak and mark it with the <resume> label.")
+    assert(plan-of-work.len() == 1,
+      message: "Could not find <plan-of-work> label in your work. Please create a plan of work appendix and mark it with the <plan-of-work> label.")
+    assert(plan-of-work.at(0).numbering == "A.1",
+      message: "The plan of work (<plan-of-work> label) should be an appendix. Check if its numbering is right, did you forget to insert the appendix.typ snippet?")
+  }
   body
 }
 

@@ -11,6 +11,9 @@
   ), // abstract
   id: "FIIT-12345-123456",
   lang: "en", // this controls how the layout is presented, be careful!
+  acknowledgment: [I would like to thank my supervisor for all the help and
+  guidance I have received. I would also like to thank my friends and family
+  for supporting during this work.]
 )
 
 = Introduction
@@ -42,7 +45,7 @@ This is an example of how to reference a paper in your thesis @riscv.
 // resume.typ
 #set heading(numbering: none)
 #pagebreak()
-= Resumé
+= Resumé <resume>
 // resume.typ
 
 #lorem(250)
@@ -69,6 +72,8 @@ This is an example of how to reference a paper in your thesis @riscv.
 
 = Source code
 #lorem(150)
+
+= Plan of work <plan-of-work>
 
 #pagebreak()
 
