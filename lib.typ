@@ -1,5 +1,7 @@
 #import "pages.typ": *
 #import "localization.typ": localization
+// TODO: make a show rule for the reference, so that it automatically adds
+// appropriate name
 
 #let fiit-thesis(
   // theme of your thesis

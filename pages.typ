@@ -1,7 +1,4 @@
 #import "_pkgs.typ": hydra.hydra
-// TODO: add readme.md
-// TODO: add instruction for how to reference an appendix or make a show rule
-// for the reference, so that it automatically adds appropriate name
 
 #let abstract-page(
   title: "Anotácia",
