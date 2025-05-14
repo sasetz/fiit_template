@@ -35,7 +35,7 @@ tasks:
       - rm --force -s $(pwd) ~/.local/share/typst/packages/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
       - mkdir -p ~/.local/share/typst/packages/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); print $2}' typst.toml)
       - ln -s $(pwd) ~/.local/share/typst/packages/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
-  
+
   uninstall-local:
     desc: "Uninstall the template from the local storage"
     cmds:
@@ -47,7 +47,7 @@ tasks:
       - rm --force ~/.local/share/typst/packages/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
       - mkdir -p ~/.local/share/typst/packages/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); print $2}' typst.toml)
       - ln -s $(pwd) ~/.local/share/typst/packages/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
-  
+
   uninstall-preview:
     desc: "Uninstall the template from the @preview namespace cache"
     cmds:

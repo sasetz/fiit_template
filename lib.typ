@@ -2,6 +2,10 @@
 #import "localization.typ": localization
 // TODO: make a show rule for the reference, so that it automatically adds
 // appropriate name
+// TODO: describe the regular_pages argument and disable_cover in readme
+// TODO: add a proper acknowledgment to the template
+// TODO: GLOBAL: consider breaking down the function into smaller pages to help
+// improve the customizability of the template
 
 #let fiit-thesis(
   // theme of your thesis
@@ -86,8 +90,6 @@
 
   let fields = locale.title-page.fields
   let values = locale.title-page.values
-
-  // FIXME: the cover sheet needs to be in English as well
 
   // cover sheet
   if not disable_cover and not regular_pages {
