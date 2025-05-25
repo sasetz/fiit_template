@@ -1,7 +1,5 @@
 #import "pages.typ": *
 #import "localization.typ": localization
-// TODO: describe the regular_pages argument and disable_cover in readme
-// TODO: add a proper acknowledgment to the template
 // TODO: GLOBAL: consider breaking down the function into smaller pages to help
 // improve the customizability of the template
 
@@ -24,7 +22,7 @@
   // supported values: "en", "sk"
   lang: "en",
   // acknowledgment text
-  acknowledgment: "thank",
+  acknowledgment: "Acknowledgment goes here",
   // set to "true" to remove the assignment text placeholder
   disable_placeholder: false,
   // set to "true" to disable the first (cover) sheet
@@ -35,7 +33,6 @@
   body,
 ) = {
   // TODO: add an option to add extra supervisors
-  // TODO: add an option to mimic the AIS cover and title pages
 
   let locale = localization(lang: lang)
   let slovak = localization(lang: "sk")
@@ -163,21 +160,27 @@
   pagebreak()
   pagebreak() // intentional empty page
   // cestne vyhlasenie
-  // TODO: maybe (MAYBE) consider making the full name appear in the middle
-  // below the line
   if not regular_pages {
     v(1fr)
     text(1.1em)[
       Čestne vyhlasujem, že som túto prácu vypracoval(a) samostatne, na základe
       konzultácií a s použitím uvedenej literatúry.
       #v(1.5em)
-      // TODO: replace this with an appropriate Slovak date replace this with an appropriate Slovak date
-      #datetime.today().display("V Bratislave, [day].[month].[year]")
-      #h(1fr)
-      \.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.
-      #linebreak()
-      #h(1fr)
-      #author
+      // TODO: replace this with an appropriate Slovak date
+      #grid(
+        columns: (4fr, 3fr),
+        rows: 2,
+        gutter: 3pt,
+        align: (left, center),
+        row-gutter: .8em,
+        grid.cell(
+          rowspan: 2,
+          align: start,
+          datetime.today().display("V Bratislave, [day].[month].[year]")
+        ),
+        repeat("."),
+        author
+      )
     ]
   }
   pagebreak()
