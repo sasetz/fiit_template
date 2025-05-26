@@ -33,7 +33,8 @@
   text(date)
   v(1.5em)
 
-  par(justify: true, abstract)
+  set par(justify: true)
+  abstract
 
   v(1fr)
   pagebreak()
