@@ -272,11 +272,14 @@
     let plan-of-work = query(
       heading.where(level: 1).and(<plan-of-work>)
     )
-    assert(resume.len() == 1 and resume.at(0).numbering == none or lang == "sk",
+    assert(resume.len() == 1 and resume.at(0).numbering == none or
+      lang == "sk" or
+      thesis != "bp2" or
+      thesis != "dp3",
       message: "Could not find <resume> label in your work. Please create a resume chapter in Slovak and mark it with the <resume> label.")
-    assert(plan-of-work.len() == 1,
+    assert(plan-of-work.len() == 1 or thesis != "bp2" or thesis != "dp3",
       message: "Could not find <plan-of-work> label in your work. Please create a plan of work appendix and mark it with the <plan-of-work> label.")
-    assert(plan-of-work.at(0).numbering == "A.1",
+    assert(plan-of-work.at(0).numbering == "A.1" or thesis != "bp2" or thesis != "dp3",
       message: "The plan of work (<plan-of-work> label) should be an appendix. Check if its numbering is right, did you forget to insert the appendix.typ snippet?")
   }
   body
