@@ -265,7 +265,8 @@
     ]
   )
 
-  context {
+  // resume and plan of work are mandatory for the final theses
+  context if thesis == "bp2" or thesis == "dp3" {
     let resume = query(
       heading.where(level: 1).and(<resume>)
     )
