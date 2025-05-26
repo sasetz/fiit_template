@@ -1,5 +1,8 @@
 version: 3
 
+vars:
+  TYPST_PACKAGES: '{{ .XDG_DATA_HOME }}/typst/packages'
+
 tasks:
   template:
     desc: "Build the template PDF"
@@ -32,24 +35,24 @@ tasks:
   install-local:
     desc: "Install or update the template locally"
     cmds:
-      - rm --force -s $(pwd) ~/.local/share/typst/packages/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
-      - mkdir -p ~/.local/share/typst/packages/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); print $2}' typst.toml)
-      - ln -s $(pwd) ~/.local/share/typst/packages/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
+      - rm --force -s $(pwd) {{.TYPST_PACKAGES}}/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
+      - mkdir -p {{.TYPST_PACKAGES}}/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); print $2}' typst.toml)
+      - ln -s $(pwd) {{.TYPST_PACKAGES}}/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
 
   uninstall-local:
     desc: "Uninstall the template from the local storage"
     cmds:
-      - rm ~/.local/share/typst/packages/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
+      - rm {{.TYPST_PACKAGES}}/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
 
   install-preview:
     desc: "Install or update the template scoped into @preview namespace cache"
     cmds:
-      - rm --force ~/.local/share/typst/packages/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
-      - mkdir -p ~/.local/share/typst/packages/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); print $2}' typst.toml)
-      - ln -s $(pwd) ~/.local/share/typst/packages/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
+      - rm --force {{.TYPST_PACKAGES}}/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
+      - mkdir -p {{.TYPST_PACKAGES}}/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); print $2}' typst.toml)
+      - ln -s $(pwd) {{.TYPST_PACKAGES}}/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
 
   uninstall-preview:
     desc: "Uninstall the template from the @preview namespace cache"
     cmds:
-      - rm ~/.local/share/typst/packages/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
+      - rm {{.TYPST_PACKAGES}}/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
 
