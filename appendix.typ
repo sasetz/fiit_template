@@ -1,5 +1,7 @@
 #set page(numbering: appendix-numbering)
-#set heading(numbering: "A.1")
+// WARN: translate the word "Appendix" to your language
+#let appendix-supplement = "Appendix"
+#set heading(numbering: "A.1", supplement: appendix-supplement)
 #show heading.where(level: 1) : it => {
   set text(1.6em)
   set par(first-line-indent: 0em)
@@ -7,8 +9,7 @@
   counter(page).update(1)
   pagebreak(weak: true)
   block(height: 5em)
-  // WARN: translate the word "Appendix" to your language
-  [*Appendix #numbering("A", counter(heading).get().at(0))*]
+  [*#appendix-supplement #numbering("A", counter(heading).get().at(0))*]
   v(.5em)
   it.body
   v(1.8em)

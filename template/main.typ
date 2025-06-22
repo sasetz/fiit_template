@@ -60,6 +60,9 @@ int main()
 == Citation example
 
 This is an example of how to reference a paper in your thesis @riscv.
+Appendices are the chapters that come at the end, you can reference them too!
+Here's an example: the source code for this project is recorded in
+@source-code.
 
 #lorem(150)
 
@@ -86,14 +89,17 @@ This is an example of how to reference a paper in your thesis @riscv.
 // resume.typ
 #set heading(numbering: none)
 #pagebreak()
-= Resumé <resume>
+= Resumé
 // resume.typ
+= Resumé <resume>
 
 #lorem(250)
 
 // appendix.typ
 #set page(numbering: appendix-numbering)
-#set heading(numbering: "A.1")
+// WARN: translate the word "Appendix" to your language
+#let appendix-supplement = "Appendix"
+#set heading(numbering: "A.1", supplement: appendix-supplement)
 #show heading.where(level: 1) : it => {
   set text(1.6em)
   set par(first-line-indent: 0em)
@@ -101,8 +107,7 @@ This is an example of how to reference a paper in your thesis @riscv.
   counter(page).update(1)
   pagebreak(weak: true)
   block(height: 5em)
-  // WARN: translate the word "Appendix" to your language
-  [*Appendix #numbering("A", counter(heading).get().at(0))*]
+  [*#appendix-supplement #numbering("A", counter(heading).get().at(0))*]
   v(.5em)
   it.body
   v(1.8em)
@@ -111,7 +116,7 @@ This is an example of how to reference a paper in your thesis @riscv.
 #counter(page).update(1)
 // appendix.typ
 
-= Source code
+= Source code <source-code>
 #lorem(150)
 
 = Plan of work <plan-of-work>
