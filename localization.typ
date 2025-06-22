@@ -51,6 +51,12 @@
     chapter: (
       title: "Chapter",
     ),
+
+    figures: (
+      raw: "Listing",
+      table: "Table",
+      figure: "Figure",
+    ),
   ),
 
   sk: (
@@ -104,6 +110,12 @@
 
     chapter: (
       title: "Kapitola",
+    ),
+
+    figures: (
+      raw: "Výpis",
+      table: "Tabuľka",
+      figure: "Obrázok",
     ),
   ),
 )

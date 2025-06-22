@@ -24,15 +24,47 @@
 
 #lorem(250)
 
+#figure(
+  caption: [FIIT logo in SVG file format for reference.],
+  pad(2em,
+    image("logo_fiit.svg", width: 50%)
+  )
+) <fiit-logo>
+
+#lorem(150)
+
 = Implementation
 
 #lorem(250)
+
+#figure(
+  caption: [This is an example of a code listing in your thesis.],
+  [```c
+int main()
+{
+    printf("Hello World!\n");
+    return 0;
+}
+  ```]
+) <c-example>
 
 == Citation example
 
 This is an example of how to reference a paper in your thesis @riscv.
 
 #lorem(150)
+
+#figure(
+  caption: [This is an example of a table that you can create using Typst.],
+  table(
+    columns: 2,
+    table.header([*Left column*], [*Right column*]),
+    [Some label], [Some data],
+    [Another label], [Another data]
+  )
+) <c-example>
+
+#lorem(200)
 
 == Another subject
 

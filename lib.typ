@@ -75,6 +75,18 @@
       v(1.8em)
     }
   }
+
+  let figure-supplement(the-figure) = {
+    if the-figure.func() == raw {
+      locale.figures.raw
+    } else if the-figure.func() == table {
+      locale.figures.table
+    } else {
+      locale.figures.figure
+    }
+  }
+  set figure(supplement: figure-supplement)
+
   set bibliography(style: "iso-690-numeric")
 
   // asserts
@@ -275,6 +287,8 @@
     )
     assert(resume.len() == 1 and resume.at(0).numbering == none or lang == "sk",
       message: "Could not find <resume> label in your work. Please create a resume chapter in Slovak and mark it with the <resume> label.")
+    assert(lang != "sk" or resume.len() == 0,
+      message: "Theses in Slovak should not have a resume. If for some reason you need to have it, remove the <resume> label from its heading.")
     assert(plan-of-work.len() == 1,
       message: "Could not find <plan-of-work> label in your work. Please create a plan of work appendix and mark it with the <plan-of-work> label.")
     assert(plan-of-work.at(0).numbering == "A.1",
