@@ -94,9 +94,32 @@
     message: "Please provide an abstract in both Slovak and English language")
   assert(locale.title-page.values.thesis.keys().contains(thesis),
     message: "The thesis type you provided is not supported. Please contact the authors or choose one of the supported types")
+  if type(supervisor) != str {
+    assert(type(supervisor) == array,
+      message: "Please provide correct supervisor argument: either a string, or an array of pairs (\"position\", \"name\").")
+    for pair in supervisor {
+      assert(type(pair) == array,
+        message: "Please provide correct supervisor argument: one or more pairs are not arrays.
+    Tip: if you have only one pair in the array, try to add a comma (,) after that element. Example: `supervisor: ((\"a\", \"b\"),)`")
+      assert(pair.len() == 2,
+        message: "Please provide correct supervisor argument: one or more pairs do not have exactly 2 elements.")
+      assert(type(pair.at(0)) == str and type(pair.at(1)) == str,
+        message: "Please provide correct supervisor argument: one or more pairs contain elements that are not strings.")
+    }
+  }
 
   let fields = locale.title-page.fields
   let values = locale.title-page.values
+
+  // process potential multiple supervisors
+  let supervisor-footer = ()
+  if type(supervisor) == str {
+    supervisor-footer = ((left: fields.supervisor, right: supervisor),)
+  } else if type(supervisor) == array {
+    for pair in supervisor {
+      supervisor-footer.push((left: pair.at(0), right: pair.at(1)))
+    }
+  }
 
   // cover sheet
   if not disable-cover and not regular-pages {
@@ -109,9 +132,7 @@
         #locale.university \
         #locale.faculty
       ],
-      footer: (
-        (left: fields.supervisor, right: supervisor),
-      ),
+      footer: supervisor-footer,
       date: [#values.month.may #datetime.today().display("[year]")]
     )
   }
@@ -130,7 +151,7 @@
         (left: fields.program, right: values.program.informatics),
         (left: fields.field, right: values.field.informatics),
         (left: fields.department, right: values.department.upai),
-        (left: fields.supervisor, right: supervisor),
+        ..supervisor-footer
       ),
       date: [#values.month.may #datetime.today().display("[year]")]
     )
