@@ -43,7 +43,7 @@ tutorial](https://typst.app/docs/tutorial/).
 
 Don't forget to intialize a Git repository and backup your work somewhere!
 
-## Template arguments
+## Template
 
 The template supports general customization options. First, you should choose
 the language that you are writing this paper in using `lang` argument.
@@ -53,10 +53,17 @@ an unsupported language, the template will generate a compile error.
 Next, you should insert general info for your thesis: `name`, `author`, `id`,
 `supervisor`. They are pretty straight-forward, so just write the correct data
 into them. `id` is your thesis ID number from the informational system.
+`supervisor` supports two options: either one supervisor's name as a string,
+or an array of pairs, where each pair contains position of the supervisor and
+their name. With the second option, you can add multiple supervisors, but
+please make sure that you write the positions in the language of the rest of
+the thesis.
 
 `thesis` selects the type of your work. The allowed values are: `bp1`, `bp2`,
 `dp1`, `dp2`, `dp3`. These values control what text is displayed on the title
-and cover pages.
+and cover pages. Sometimes, you might get an error while upgrading your thesis
+to the final stage. Pay attention to those errors, as they tell you how exactly
+your work should be structured.
 
 `abstract` is a dictionary of the translated abstracts that you provide with
 your work. The keys are the language identifiers, like the `lang` argument.
@@ -73,6 +80,14 @@ erases headers, title/abstract pages and figures. It wouldn't be a perfect page
 count, since it leaves the paragraphs and linebreaks, but it's still pretty
 accurate if you just want to quickly get the idea of how much text you really
 have.
+
+`table-outline` is a boolean, set it to true to enable list of tables.
+
+`figures-outline` enables list of figures (pictures).
+
+`abbreviations-outline` is an array of pairs, where each pair contains an
+abbreviation and its explanation. If you leave this argument as default or
+explicitly empty, the list of abbreviations will not show.
 
 `disable-cover` lets you disable the first (cover) page of the thesis. That's
 it.
