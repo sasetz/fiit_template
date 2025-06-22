@@ -24,12 +24,12 @@
   // acknowledgment text
   acknowledgment: "Acknowledgment goes here",
   // set to "true" to remove the assignment text placeholder
-  disable_placeholder: false,
+  disable-placeholder: false,
   // set to "true" to disable the first (cover) sheet
-  disable_cover: false,
+  disable-cover: false,
   // remove everything except the text to count how many regular pages of text
   // you have
-  regular_pages: false,
+  regular-pages: false,
   body,
 ) = {
   // TODO: add an option to add extra supervisors
@@ -37,16 +37,16 @@
   let locale = localization(lang: lang)
   let slovak = localization(lang: "sk")
 
-  show pagebreak: it => if regular_pages {none} else {it}
-  show bibliography: it => if regular_pages {none} else {it}
-  show outline: it => if regular_pages {none} else {it}
-  show figure: it => if regular_pages {none} else {it}
-  show colbreak: it => if regular_pages {none} else {it}
+  show pagebreak: it => if regular-pages {none} else {it}
+  show bibliography: it => if regular-pages {none} else {it}
+  show outline: it => if regular-pages {none} else {it}
+  show figure: it => if regular-pages {none} else {it}
+  show colbreak: it => if regular-pages {none} else {it}
 
-  show list.item: it => if regular_pages {it.body} else {it}
-  show list: it => if regular_pages {it.body} else {it}
-  show columns: it => if regular_pages {it.body} else {it}
-  show align: it => if regular_pages {it.body} else {it}
+  show list.item: it => if regular-pages {it.body} else {it}
+  show list: it => if regular-pages {it.body} else {it}
+  show columns: it => if regular-pages {it.body} else {it}
+  show align: it => if regular-pages {it.body} else {it}
 
   // Set the document's basic properties.
   set document(author: author, title: title)
@@ -54,14 +54,14 @@
   show math.equation: set text(weight: 400)
   set heading(numbering: "1.1")
   show heading: it => {
-    if not regular_pages {
+    if not regular-pages {
       v(1em)
       it
       v(0.75em)
     }
   }
   show heading.where(level: 1) : it => {
-    if not regular_pages {
+    if not regular-pages {
       set text(1.6em)
       set par(first-line-indent: 0em)
       pagebreak()
@@ -99,7 +99,7 @@
   let values = locale.title-page.values
 
   // cover sheet
-  if not disable_cover and not regular_pages {
+  if not disable-cover and not regular-pages {
     title-page(
       id: id,
       author: author,
@@ -116,7 +116,7 @@
     )
   }
   // title page
-  if not regular_pages {
+  if not regular-pages {
     title-page(
       id: id,
       author: author,
@@ -138,7 +138,7 @@
 
   pagebreak() // intentional empty page
 
-  if not disable_placeholder and not regular_pages {
+  if not disable-placeholder and not regular-pages {
     page(
       fill: tiling(size: (40pt, 40pt))[
         #place(line(start: (0%, 0%), end: (100%, 100%), stroke: 2pt + red))
@@ -149,14 +149,14 @@
       Use other tools to insert your generated assignment text instead of
       this page.
 
-      This page can be turned off using the `disable_placeholder` argument.
+      This page can be turned off using the `disable-placeholder` argument.
     ]
   }
   pagebreak()
   pagebreak() // intentional empty page
 
   // acknowledgment
-  if not regular_pages {
+  if not regular-pages {
     v(1fr)
     par(
       text(1.5em)[
@@ -172,7 +172,7 @@
   pagebreak()
   pagebreak() // intentional empty page
   // cestne vyhlasenie
-  if not regular_pages {
+  if not regular-pages {
     v(1fr)
     text(1.1em)[
       Čestne vyhlasujem, že som túto prácu vypracoval(a) samostatne, na základe
@@ -200,7 +200,7 @@
 
   // even if the language is Slovak, the university requires students to provide
   // both versions of the abstract
-  if not regular_pages {
+  if not regular-pages {
     abstract-page(
       title: slovak.annotation.title,
       university: slovak.university,
@@ -216,7 +216,7 @@
   pagebreak() // intentional empty page
 
   // locale abstract
-  if not regular_pages {
+  if not regular-pages {
     abstract-page(
       title: locale.annotation.title,
       university: locale.university,

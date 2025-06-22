@@ -67,14 +67,14 @@ in Typst.
 `acknowledgment` sets the acknowledgment text. You can write anything you want
 here.
 
-`regular_pages` is a boolean that allows you to estimate the length of your
+`regular-pages` is a boolean that allows you to estimate the length of your
 thesis in "regular" pages. It disables most of the formatting, completely
 erases headers, title/abstract pages and figures. It wouldn't be a perfect page
 count, since it leaves the paragraphs and linebreaks, but it's still pretty
 accurate if you just want to quickly get the idea of how much text you really
 have.
 
-`disable_cover` lets you disable the first (cover) page of the thesis. That's
+`disable-cover` lets you disable the first (cover) page of the thesis. That's
 it.
 
 ## Appendices
@@ -125,7 +125,7 @@ tools to do that, like the ones mentioned earlier.
 You may have noticed that the document produces a red striped page with a
 warning in it. This page is supposed to be replaced with the thesis assignment,
 leave it on until you are going to do that. To disable it, set the
-`disable_placeholder` argument in the template function to `true`.
+`disable-placeholder` argument in the template function to `true`.
 
 # Developing
 
