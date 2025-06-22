@@ -4,7 +4,7 @@
   title: "Moja záverečná práca",
   thesis: "bp2",
   author: "Jožko Mrkvička",
-  supervisor: "prof. Jožko Mrkvička",
+  supervisor: "prof. Jozef Mrkva, PhD.",
   abstract: (
     sk: lorem(150),
     en: lorem(150),
@@ -13,7 +13,16 @@
   lang: "en", // this controls how the layout is presented, be careful!
   acknowledgment: [I would like to thank my supervisor for all the help and
   guidance I have received. I would also like to thank my friends and family
-  for supporting during this work.]
+  for supporting during this work.],
+  // remove the argument or leave the array empty to hide the list of
+  // abbreviations
+  abbreviations-outline: (
+    ("SSL", "Secure socket layer"),
+    ("RISC", "Reduced instruction set computer"),
+    ("ISA", "Instruction set architecture"),
+  ),
+  figures-outline: true,
+  tables-outline: true,
 )
 
 = Introduction

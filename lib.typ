@@ -2,6 +2,12 @@
 #import "localization.typ": localization
 // TODO: GLOBAL: consider breaking down the function into smaller pages to help
 // improve the customizability of the template
+// TODO: add supplement to appendices
+// TODO: remake appendices:
+//    - add a function for appendix
+//    - make that function's body act like the appendix itself
+//    - offset headings inside appendices by one
+//    - reset heading counter on first appendix
 
 #let fiit-thesis(
   // theme of your thesis
@@ -23,6 +29,12 @@
   lang: "en",
   // acknowledgment text
   acknowledgment: "Acknowledgment goes here",
+  // enable list of tables
+  tables-outline: false,
+  // enable list of images (figures)
+  figures-outline: false,
+  // if this array is empty, the list of abbreviations does not appear
+  abbreviations-outline: (),
   // set to "true" to remove the assignment text placeholder
   disable-placeholder: false,
   // set to "true" to disable the first (cover) sheet
@@ -107,6 +119,18 @@
         message: "Please provide correct supervisor argument: one or more pairs contain elements that are not strings.")
     }
   }
+
+    assert(type(abbreviations-outline) == array,
+      message: "Please provide correct abbreviations-outline argument: either a string, or an array of pairs (\"abbreviation\", \"explanation\").")
+    for pair in abbreviations-outline {
+      assert(type(pair) == array,
+        message: "Please provide correct abbreviations-outline argument: one or more pairs are not arrays.
+    Tip: if you have only one pair in the array, try to add a comma (,) after that element. Example: `abbreviations-outline: ((\"a\", \"b\"),)`")
+      assert(pair.len() == 2,
+        message: "Please provide correct abbreviations-outline argument: one or more pairs do not have exactly 2 elements.")
+      assert((type(pair.at(0)) == str or type(pair.at(0)) == content) and (type(pair.at(1)) == str or type(pair.at(1)) == content),
+        message: "Please provide correct abbreviations-outline argument: one or more pairs contain elements that are not strings or content.")
+    }
 
   let fields = locale.title-page.fields
   let values = locale.title-page.values
@@ -254,21 +278,40 @@
   pagebreak() // intentional empty page
 
   // table of contents
-  // TODO: make an option to add table of contents for images, tables,
-  // abbreviations and definitions
   set page(numbering: "i") // Roman numbering until the end of the contents
   show outline.entry.where(
     level: 1
   ): it => {
-    set block(above: 1.8em)
-    show text: it => strong(it)
-    link(
-      it.element.location(),
-      it.indented(it.prefix(), [#it.body()#h(1fr)#it.page()]),
-    )
+    if it.element.func() == heading {
+      // outline entry for the contents
+      set block(above: 1.8em)
+      show text: it => strong(it)
+      link(
+        it.element.location(),
+        it.indented(it.prefix(), [#it.body()#h(1fr)#it.page()]),
+      )
+    } else {
+      // outline entry for lists of figures
+      link(
+        it.element.location(),
+        it.indented(strong(it.prefix()), it.inner()),
+      )
+    }
   }
   show outline.entry: set block(above: 1.2em)
   outline(title: locale.contents.title, depth: 3, indent: auto)
+  if figures-outline {
+    outline(title: locale.contents.figures, target: figure.where(kind: image))
+  }
+  if tables-outline {
+    outline(title: locale.contents.tables, target: figure.where(kind: table))
+  }
+  if abbreviations-outline.len() > 0 and not regular-pages {
+    list-of-abbreviations(
+      title: locale.contents.abbreviations,
+      abbreviations: abbreviations-outline,
+    )
+  }
   set page(numbering: none)
   v(1fr) // if the page is full, this will be a pagebreak
   pagebreak(weak: true) // if the page is not full, this will be a pagebreak

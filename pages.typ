@@ -98,3 +98,25 @@
   pagebreak()
 }
 
+#let list-of-abbreviations(
+  title: "List of Abbreviations",
+  abbreviations: (("SSL", "Secure socket layer")),
+) = {
+  pagebreak(weak: true)
+  par(text(2.2em, strong(title)))
+  v(4em)
+  grid(
+    columns: (auto, 1fr),
+    column-gutter: 5em,
+    row-gutter: 1.4em,
+    ..abbreviations
+      .map(it => (
+          strong(it.at(0)),
+          it.at(1)
+        )
+      )
+      .flatten()
+  )
+  pagebreak()
+}
+
