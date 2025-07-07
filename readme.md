@@ -47,14 +47,14 @@ Don't forget to intialize a Git repository and backup your work somewhere!
 
 | Option | Type | Example/Default | Description | Possible values |
 | ------------- | -------------- | -------------- | -------------- | -------------- |
-| title | `str` | "Moja záverečná práca" | thesis title | |
-| thesis | enum (`str`) | "bp2" | type of your thesis | "bp1", "bp2", "dp1", "dp2", "dp3" |
-| author | `str` | "Jožko Mrkvička" | your name | |
-| supervisor | `str` or `array` of `str` | "prof. Jozef Mrkva, PhD." | your supervisor | `str` if you have one supervisor, `array` if many |
+| title | `str` | `"Moja záverečná práca"` | thesis title | |
+| thesis | enum (`str`) | `"bp2"` | type of your thesis | `"bp1"`, `"bp2"`, `"dp1"`, `"dp2"`, `"dp3"` |
+| author | `str` | `"Jožko Mrkvička"` | your name | |
+| supervisor | `str` or `array` of `str` | `"prof. Jozef Mrkva, PhD."` | your supervisor | `str` if you have one supervisor, `array` if many |
 | abstract | `dict` | `( sk: lorem(150), en: lorem(150) )` | abstract in two languages | keys are the language, with `str` as values |
-| id | `str` | "FIIT-12345-123456" | id from AIS | |
-| lang | `str` | "en" | language of your thesis | "sk", "en" |
-| acknowledgment | `str` | "Omitted" | thanks at the start of the thesis | |
+| id | `str` | `"FIIT-12345-123456"` | id from AIS | |
+| lang | enum(`str`) | `"en"` | language of your thesis | `"sk"`, `"en"` |
+| acknowledgment | `str` | `"Omitted"` | thanks at the start of the thesis | |
 | tables-outline | `bool` | `false` | enable tables outline | |
 | figures-outline | `bool` | `false` | enable figures outline | |
 | abbreviations-outline | `array` | `( ("SSL", "Secure socket layer"), ... )` | list of abbreviations, if you need one | |
@@ -62,7 +62,7 @@ Don't forget to intialize a Git repository and backup your work somewhere!
 | disable-cover | `bool` | `false` | disable cover page (the first one) | |
 | regular-pages | `bool` | `false` | enable estimate for how many regular pages your thesis has | |
 | pretty-headings | `bool` | `true` | enable page breaks and large spaces around chapter headings | |
-| bibliography-style | `str` | "iso-690-numeric" | leave as default, other values are wrong | see [docs](https://typst.app/docs/reference/model/bibliography/#parameters-style) |
+| bibliography-style | `str` | `"iso-690-numeric"` | leave as default, other values are wrong | see [docs](https://typst.app/docs/reference/model/bibliography/#parameters-style) |
 
 ## Template
 
