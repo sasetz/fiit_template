@@ -41,6 +41,8 @@
   // remove everything except the text to count how many regular pages of text
   // you have
   regular-pages: false,
+  // enable page breaks and large spaces around chapter headings
+  pretty-headings: true,
   // warning: do NOT change this option.
   // If you change this option, it will make your thesis non-compliant to the
   // faculty's requirements, as they clearly state that the bibliography should
@@ -78,17 +80,29 @@
   }
   show heading.where(level: 1) : it => {
     if not regular-pages {
-      set text(1.6em)
-      set par(first-line-indent: 0em)
-      pagebreak()
+      if pretty-headings and it.numbering != none {
+        // pretty chapter
+        set text(1.6em)
+        set par(first-line-indent: 0em)
 
-      if it.numbering != none {
+        pagebreak()
         block(height: 5em)
         [#locale.chapter.title #counter(heading).get().at(0)]
         v(.5em)
+        it.body
+        v(1.8em)
+      } else if it.numbering != none {
+        // ugly chapter
+        it
+      } else {
+        // bibliography/outline/etc.
+        set text(1.6em)
+        set par(first-line-indent: 0em)
+
+        pagebreak()
+        it.body
+        v(1.8em)
       }
-      it.body
-      v(1.8em)
     }
   }
 

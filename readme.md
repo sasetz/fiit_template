@@ -61,6 +61,7 @@ Don't forget to intialize a Git repository and backup your work somewhere!
 | disable-placeholder | `bool` | `false` | disable the assignment placeholder warning page | |
 | disable-cover | `bool` | `false` | disable cover page (the first one) | |
 | regular-pages | `bool` | `false` | enable estimate for how many regular pages your thesis has | |
+| pretty-headings | `bool` | `true` | enable page breaks and large spaces around chapter headings | |
 | bibliography-style | `str` | "iso-690-numeric" | leave as default, other values are wrong | see [docs](https://typst.app/docs/reference/model/bibliography/#parameters-style) |
 
 ## Template
@@ -94,13 +95,6 @@ in Typst.
 `acknowledgment` sets the acknowledgment text. You can write anything you want
 here.
 
-`regular-pages` is a boolean that allows you to estimate the length of your
-thesis in "regular" pages. It disables most of the formatting, completely
-erases headers, title/abstract pages and figures. It wouldn't be a perfect page
-count, since it leaves the paragraphs and linebreaks, but it's still pretty
-accurate if you just want to quickly get the idea of how much text you really
-have.
-
 `table-outline` is a boolean, set it to true to enable list of tables.
 
 `figures-outline` enables list of figures (pictures).
@@ -109,8 +103,27 @@ have.
 abbreviation and its explanation. If you leave this argument as default or
 explicitly empty, the list of abbreviations will not show.
 
+`disable-placeholder` lets you disable the warning page that reminds you to
+insert the assignment for your thesis.
+
 `disable-cover` lets you disable the first (cover) page of the thesis. That's
 it.
+
+`regular-pages` is a boolean that allows you to estimate the length of your
+thesis in "regular" pages. It disables most of the formatting, completely
+erases headers, title/abstract pages and figures. It wouldn't be a perfect page
+count, since it leaves the paragraphs and linebreaks, but it's still pretty
+accurate if you just want to quickly get the idea of how much text you really
+have.
+
+`pretty-headings` allows the headings to be on a new page, with pretty spaces
+aroung them. You can disable this option if you want your chapters appear more
+compact.
+
+`bibliography-style` should be left as default, because it is the only
+acceptable option by the faculty. If you still want your citations to look
+different, like square brackets instead of regular parenthesis, use this option
+at your own risk.
 
 ## Appendices
 
