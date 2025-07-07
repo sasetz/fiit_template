@@ -2,7 +2,6 @@
 #import "localization.typ": localization
 // TODO: GLOBAL: consider breaking down the function into smaller pages to help
 // improve the customizability of the template
-// TODO: add supplement to appendices
 // TODO: remake appendices:
 //    - add a function for appendix
 //    - make that function's body act like the appendix itself
@@ -42,6 +41,11 @@
   // remove everything except the text to count how many regular pages of text
   // you have
   regular-pages: false,
+  // warning: do NOT change this option.
+  // If you change this option, it will make your thesis non-compliant to the
+  // faculty's requirements, as they clearly state that the bibliography should
+  // adgere to the ISO-690 standard
+  bibliography-style: "iso-690-numeric",
   body,
 ) = {
   // TODO: add an option to add extra supervisors
@@ -99,7 +103,9 @@
   }
   set figure(supplement: figure-supplement)
 
-  set bibliography(style: "iso-690-numeric")
+  if bibliography-style != none {
+    set bibliography(style: bibliography-style)
+  }
 
   // asserts
   assert(abstract.keys().contains("sk") and abstract.keys().contains("en"),

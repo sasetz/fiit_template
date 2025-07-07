@@ -43,6 +43,26 @@ tutorial](https://typst.app/docs/tutorial/).
 
 Don't forget to intialize a Git repository and backup your work somewhere!
 
+## Cheatsheet
+
+| Option | Type | Example/Default | Description | Possible values |
+| ------------- | -------------- | -------------- | -------------- | -------------- |
+| title | `str` | "Moja záverečná práca" | thesis title | |
+| thesis | enum (`str`) | "bp2" | type of your thesis | "bp1", "bp2", "dp1", "dp2", "dp3" |
+| author | `str` | "Jožko Mrkvička" | your name | |
+| supervisor | `str` or `array` of `str` | "prof. Jozef Mrkva, PhD." | your supervisor | `str` if you have one supervisor, `array` if many |
+| abstract | `dict` | `( sk: lorem(150), en: lorem(150) )` | abstract in two languages | keys are the language, with `str` as values |
+| id | `str` | "FIIT-12345-123456" | id from AIS | |
+| lang | `str` | "en" | language of your thesis | "sk", "en" |
+| acknowledgment | `str` | "Omitted" | thanks at the start of the thesis | |
+| tables-outline | `bool` | `false` | enable tables outline | |
+| figures-outline | `bool` | `false` | enable figures outline | |
+| abbreviations-outline | `array` | `( ("SSL", "Secure socket layer"), ... )` | list of abbreviations, if you need one | |
+| disable-placeholder | `bool` | `false` | disable the assignment placeholder warning page | |
+| disable-cover | `bool` | `false` | disable cover page (the first one) | |
+| regular-pages | `bool` | `false` | enable estimate for how many regular pages your thesis has | |
+| bibliography-style | `str` | "iso-690-numeric" | leave as default, other values are wrong | see [docs](https://typst.app/docs/reference/model/bibliography/#parameters-style) |
+
 ## Template
 
 The template supports general customization options. First, you should choose
@@ -50,7 +70,7 @@ the language that you are writing this paper in using `lang` argument.
 Currently supported languages are listed at the top of this page. If you choose
 an unsupported language, the template will generate a compile error.
 
-Next, you should insert general info for your thesis: `name`, `author`, `id`,
+Next, you should insert general info for your thesis: `title`, `author`, `id`,
 `supervisor`. They are pretty straight-forward, so just write the correct data
 into them. `id` is your thesis ID number from the informational system.
 `supervisor` supports two options: either one supervisor's name as a string,
@@ -99,16 +119,10 @@ the first appendix. Unfortunately, we couldn't find a way to include them like
 a function or something similar, so you should just leave those lines be. If
 you're writing your thesis in Slovak or some other language, translate the word
 "Appendix" in the snippet to your language of choice. If you erase them by
-mistake, you can find them in `appendix.typ` file in this repository. You can
-also use `#include("appendix.typ")` to include this file into your thesis.
+mistake, you can find them in `appendix.typ` file in this repository.
 
-When referencing an appendix, use this snippet to change the wording of the
-reference from "Section" to "Appendix" or "Príloha". The letter of the appendix
-will be automatically inserted.
-
-```typst
-@appendix_code[Appendix]
-```
+To reference the appendix, just use regular Typst referencing. The word
+"Appendix" will be inserted automatically.
 
 ## Resumé
 
