@@ -1,0 +1,23 @@
+name: Format Code
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  typstyle:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        ref: ${{ github.head_ref }}
+    - name: Run typstyle
+      uses: typstyle-rs/typstyle-action@main
+    - name: Push
+      uses: stefanzweifel/git-auto-commit-action@master
+      with:
+        commit_message: "style: format using typstyle"
