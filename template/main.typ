@@ -50,12 +50,12 @@
 #figure(
   caption: [This is an example of a code listing in your thesis.],
   [```c
-    int main()
-    {
-        printf("Hello World!\n");
-        return 0;
-    }
-    ```],
+  int main()
+  {
+      printf("Hello World!\n");
+      return 0;
+  }
+  ```],
 ) <c-example>
 
 == Citation example
