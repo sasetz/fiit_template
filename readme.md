@@ -55,10 +55,10 @@ Don't forget to intialize a Git repository and backup your work somewhere!
 | id | `str` | `"FIIT-12345-123456"` | id from AIS | |
 | lang | enum(`str`) | `"en"` | language of your thesis | `"sk"`, `"en"` |
 | acknowledgment | `str` | `"Omitted"` | thanks at the start of the thesis | |
+| assignment | path | `none` | recommended to leave as default, see "How to insert the thesis assignment?" | |
 | tables-outline | `bool` | `false` | enable tables outline | |
 | figures-outline | `bool` | `false` | enable figures outline | |
 | abbreviations-outline | `array` | `( ("SSL", "Secure socket layer"), ... )` | list of abbreviations, if you need one | |
-| disable-placeholder | `bool` | `false` | disable the assignment placeholder warning page | |
 | disable-cover | `bool` | `false` | disable cover page (the first one) | |
 | regular-pages | `bool` | `false` | enable estimate for how many regular pages your thesis has | |
 | pretty-headings | `bool` | `true` | enable page breaks and large spaces around chapter headings | |
@@ -95,6 +95,9 @@ in Typst.
 `acknowledgment` sets the acknowledgment text. You can write anything you want
 here.
 
+`assignment` sets the assignment PDF file path. This isn't the ideal way to
+insert your assignment from AIS, see "How to insert the thesis assignment?"
+
 `table-outline` is a boolean, set it to true to enable list of tables.
 
 `figures-outline` enables list of figures (pictures).
@@ -102,9 +105,6 @@ here.
 `abbreviations-outline` is an array of pairs, where each pair contains an
 abbreviation and its explanation. If you leave this argument as default or
 explicitly empty, the list of abbreviations will not show.
-
-`disable-placeholder` lets you disable the warning page that reminds you to
-insert the assignment for your thesis.
 
 `disable-cover` lets you disable the first (cover) page of the thesis. That's
 it.
@@ -175,13 +175,15 @@ CLI tools such as `pdftk` could also do the job.
 
 ### How to insert the thesis assignment?
 
-Unfortunately, Typst cannot insert PDFs into the document. You should use other
-tools to do that, like the ones mentioned earlier.
+You might notice the warning page in the thesis right after you load the
+template. This page can be removed by specifying an assignment file path. Typst
+doesn't support inserting PDFs into documents, but package `muchpdf` partially
+solves this issue. However, due to how it works (renders the PDF into an SVG),
+we cannot recommend using this option. This rendering erases text data from the
+PDF, and automated AIS tools most likely rely on those.
 
-You may have noticed that the document produces a red striped page with a
-warning in it. This page is supposed to be replaced with the thesis assignment,
-leave it on until you are going to do that. To disable it, set the
-`disable-placeholder` argument in the template function to `true`.
+To get rid of the warning page, use external tools like `pdfarrange` (GUI) and
+`pdftk` (CLI).
 
 # Developing
 

@@ -1,5 +1,6 @@
 #import "pages.typ": *
 #import "localization.typ": localization
+#import "@preview/muchpdf:0.1.0": muchpdf
 // TODO: GLOBAL: consider breaking down the function into smaller pages to help
 // improve the customizability of the template
 // TODO: remake appendices:
@@ -30,14 +31,14 @@
   lang: "en",
   // acknowledgment text
   acknowledgment: "Acknowledgment goes here",
+  // assignment from AIS file path
+  assignment: none,
   // enable list of tables
   tables-outline: false,
   // enable list of images (figures)
   figures-outline: false,
   // if this array is empty, the list of abbreviations does not appear
   abbreviations-outline: (),
-  // set to "true" to remove the assignment text placeholder
-  disable-placeholder: false,
   // set to "true" to disable the first (cover) sheet
   disable-cover: false,
   // remove everything except the text to count how many regular pages of text
@@ -227,7 +228,7 @@
 
   pagebreak() // intentional empty page
 
-  if not disable-placeholder and not regular-pages {
+  if not regular-pages and assignment == none {
     page(
       fill: tiling(size: (40pt, 40pt))[
         #place(line(start: (0%, 0%), end: (100%, 100%), stroke: 2pt + red))
@@ -235,11 +236,14 @@
     )[
       #set text(3em)
       #set par(justify: true)
-      Use other tools to insert your generated assignment text instead of
-      this page.
+      This page is displayed, because you don't have a correct file path
+      specified in `assignment` argument.
 
-      This page can be turned off using the `disable-placeholder` argument.
+      Provide a valid assignment, or replace this page with external tools.
     ]
+  } else if not regular-pages {
+    set page(margin: 0em)
+    muchpdf(read(assignment, encoding: none))
   }
   pagebreak()
   pagebreak() // intentional empty page
