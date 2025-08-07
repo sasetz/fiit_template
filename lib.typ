@@ -1,6 +1,6 @@
 #import "pages.typ": *
+#import "_pkgs.typ": muchpdf
 #import "localization.typ": localization
-#import "@preview/muchpdf:0.1.0": muchpdf
 // TODO: GLOBAL: consider breaking down the function into smaller pages to help
 // improve the customizability of the template
 // TODO: remake appendices:
@@ -198,10 +198,11 @@
     )[
       #set text(3em)
       #set par(justify: true)
-      This page is displayed, because you don't have a correct file path
-      specified in `assignment` argument.
+      Don't forget to replace this page with your AIS assignment PDF using
+      external tools!
 
-      Provide a valid assignment, or replace this page with external tools.
+      You can also specify assignment's file path using the `assignment`
+      argument. This way is not recommended for final hand-in.
     ]
   } else if not regular-pages {
     set page(margin: 0em)
