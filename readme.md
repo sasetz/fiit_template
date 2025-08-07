@@ -127,26 +127,40 @@ at your own risk.
 
 ## Appendices
 
-To style the appendices correctly, a few lines of code need to be right before
-the first appendix. Unfortunately, we couldn't find a way to include them like
-a function or something similar, so you should just leave those lines be. If
-you're writing your thesis in Slovak or some other language, translate the word
-"Appendix" in the snippet to your language of choice. If you erase them by
-mistake, you can find them in `appendix.typ` file in this repository.
+To style the appendices correctly, you need to use a simple `show` rule with a
+special function: `section-appendices`. Every heading you put after this will
+be considered an appendix and numbered accordingly. You can add nested headings
+as usual, they will be numbered and labeled correctly.
+
+```typst
+#show: section-appendices.with()
+```
 
 To reference the appendix, just use regular Typst referencing. The word
-"Appendix" will be inserted automatically.
+"Appendix" will be inserted automatically with regard to your language of
+choice.
 
 ## Resumé
 
 The resumé chapter is a chapter that is needed only when you write your thesis
-in a language other from Slovak. Right before it starts, you should disable
-header numbering, as the resumé is not required to be a chapter in the
-document. Here's how to do that:
+in a language other from Slovak. There is a special function for that:
+`resume`. Here's how to use it:
 
 ```typst
-#set heading(numbering: none) // disable chapter numbering for the resumé
+#resume()[
+  #lorem(250) // any resume content should go here
+]
 ```
+
+## Assertions
+
+This template has integrated a few useful assertions that will help you to
+remember important points about your thesis. For example, if you forget to
+write a resumé and your language is set to English, the assertion will refuse
+all compilation attempts. This particular assertion is set only for BP2/DP3.
+
+The assertion will give you a helpful error message. If for some reason, you
+think an assertion is wrong, please open an issue in our GitHub repository.
 
 ## How to hand in the thesis?
 

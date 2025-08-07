@@ -8,6 +8,8 @@
 //    - offset headings inside appendices by one
 //    - reset heading counter on first appendix
 
+#let _lang = state("en")
+
 #let fiit-thesis(
   // theme of your thesis
   title: "Záverečná práca",
@@ -54,6 +56,7 @@
 
   let locale = localization(lang: lang)
   let slovak = localization(lang: "sk")
+  _lang.update(lang)
 
   show pagebreak: it => if regular-pages { none } else { it }
   show bibliography: it => if regular-pages { none } else { it }
@@ -426,9 +429,45 @@
   body
 }
 
-#let appendix-numbering(first, ..) = [
-  #if counter(heading).get().at(0) != 0 [
-    #numbering("A.1", counter(heading).get().at(0))-#first
+#let section-appendices(body) = {
+  let appendix-numbering(first, ..) = [
+    #if counter(heading).get().at(0) != 0 [
+      #numbering("A.1", counter(heading).get().at(0))-#first
+    ]
   ]
-]
+  set page(numbering: appendix-numbering)
+  // get the supplement from state
+  // since getting a state value requires context, wrap the supplement into a
+  // function
+  set heading(numbering: "A.1", supplement: context {
+    localization(lang: _lang.get()).appendix
+  })
+  show heading.where(level: 1) : it => {
+    set text(1.6em)
+    set par(first-line-indent: 0em)
+    pagebreak()
+    counter(page).update(1)
+    pagebreak(weak: true)
+    block(height: 5em)
+    [*#it.supplement #numbering("A", counter(heading).get().at(0))*]
+    v(.5em)
+    it.body
+    v(1.8em)
+  }
+  counter(heading).update(0)
+  counter(page).update(1)
+  body
+}
+
+#let resume(body) = {
+  pagebreak()
+  context {
+    let locale = localization(lang: _lang.get())
+    set heading(numbering: none)
+    [
+      = Resumé <resume>
+    ]
+  }
+  body
+}
 

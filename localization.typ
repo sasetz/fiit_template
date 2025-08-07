@@ -51,6 +51,8 @@
       table: "Table",
       figure: "Figure",
     ),
+
+    appendix: "Appendix",
   ),
   sk: (
     university: "Slovenská technická univerzita v Bratislave",
@@ -104,6 +106,8 @@
       table: "Tabuľka",
       figure: "Obrázok",
     ),
+
+    appendix: "Príloha",
   ),
 )
 

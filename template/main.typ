@@ -87,35 +87,13 @@ Here's an example: the source code for this project is recorded in
 #bibliography("citations.bib")
 #pagebreak(weak: true)
 
-// resume.typ
-#set heading(numbering: none)
-#pagebreak()
-= Resumé
-// resume.typ
-= Resumé <resume>
+// don't forget to insert a resume if you're not using Slovak
+#resume()[
+  #lorem(250)
+]
 
-#lorem(250)
-
-// appendix.typ
-#set page(numbering: appendix-numbering)
-// WARN: translate the word "Appendix" to your language
-#let appendix-supplement = "Appendix"
-#set heading(numbering: "A.1", supplement: appendix-supplement)
-#show heading.where(level: 1): it => {
-  set text(1.6em)
-  set par(first-line-indent: 0em)
-  pagebreak()
-  counter(page).update(1)
-  pagebreak(weak: true)
-  block(height: 5em)
-  [*#appendix-supplement #numbering("A", counter(heading).get().at(0))*]
-  v(.5em)
-  it.body
-  v(1.8em)
-}
-#counter(heading).update(0)
-#counter(page).update(1)
-// appendix.typ
+// start the appendices section with this line
+#show: section-appendices.with()
 
 = Source code <source-code>
 #lorem(150)
