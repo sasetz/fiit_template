@@ -55,16 +55,16 @@
   let locale = localization(lang: lang)
   let slovak = localization(lang: "sk")
 
-  show pagebreak: it => if regular-pages {none} else {it}
-  show bibliography: it => if regular-pages {none} else {it}
-  show outline: it => if regular-pages {none} else {it}
-  show figure: it => if regular-pages {none} else {it}
-  show colbreak: it => if regular-pages {none} else {it}
+  show pagebreak: it => if regular-pages { none } else { it }
+  show bibliography: it => if regular-pages { none } else { it }
+  show outline: it => if regular-pages { none } else { it }
+  show figure: it => if regular-pages { none } else { it }
+  show colbreak: it => if regular-pages { none } else { it }
 
-  show list.item: it => if regular-pages {it.body} else {it}
-  show list: it => if regular-pages {it.body} else {it}
-  show columns: it => if regular-pages {it.body} else {it}
-  show align: it => if regular-pages {it.body} else {it}
+  show list.item: it => if regular-pages { it.body } else { it }
+  show list: it => if regular-pages { it.body } else { it }
+  show columns: it => if regular-pages { it.body } else { it }
+  show align: it => if regular-pages { it.body } else { it }
 
   // Set the document's basic properties.
   set document(author: author, title: title)
@@ -78,7 +78,7 @@
       v(0.75em)
     }
   }
-  show heading.where(level: 1) : it => {
+  show heading.where(level: 1): it => {
     if not regular-pages {
       if pretty-headings and it.numbering != none {
         // pretty chapter
@@ -122,35 +122,56 @@
   }
 
   // asserts
-  assert(abstract.keys().contains("sk") and abstract.keys().contains("en"),
-    message: "Please provide an abstract in both Slovak and English language")
-  assert(locale.title-page.values.thesis.keys().contains(thesis),
-    message: "The thesis type you provided is not supported. Please contact the authors or choose one of the supported types")
+  assert(
+    abstract.keys().contains("sk") and abstract.keys().contains("en"),
+    message: "Please provide an abstract in both Slovak and English language",
+  )
+  assert(
+    locale.title-page.values.thesis.keys().contains(thesis),
+    message: "The thesis type you provided is not supported. Please contact the authors or choose one of the supported types",
+  )
   if type(supervisor) != str {
-    assert(type(supervisor) == array,
-      message: "Please provide correct supervisor argument: either a string, or an array of pairs (\"position\", \"name\").")
+    assert(
+      type(supervisor) == array,
+      message: "Please provide correct supervisor argument: either a string, or an array of pairs (\"position\", \"name\").",
+    )
     for pair in supervisor {
-      assert(type(pair) == array,
+      assert(
+        type(pair) == array,
         message: "Please provide correct supervisor argument: one or more pairs are not arrays.
-    Tip: if you have only one pair in the array, try to add a comma (,) after that element. Example: `supervisor: ((\"a\", \"b\"),)`")
-      assert(pair.len() == 2,
-        message: "Please provide correct supervisor argument: one or more pairs do not have exactly 2 elements.")
-      assert(type(pair.at(0)) == str and type(pair.at(1)) == str,
-        message: "Please provide correct supervisor argument: one or more pairs contain elements that are not strings.")
+    Tip: if you have only one pair in the array, try to add a comma (,) after that element. Example: `supervisor: ((\"a\", \"b\"),)`",
+      )
+      assert(
+        pair.len() == 2,
+        message: "Please provide correct supervisor argument: one or more pairs do not have exactly 2 elements.",
+      )
+      assert(
+        type(pair.at(0)) == str and type(pair.at(1)) == str,
+        message: "Please provide correct supervisor argument: one or more pairs contain elements that are not strings.",
+      )
     }
   }
 
-    assert(type(abbreviations-outline) == array,
-      message: "Please provide correct abbreviations-outline argument: either a string, or an array of pairs (\"abbreviation\", \"explanation\").")
-    for pair in abbreviations-outline {
-      assert(type(pair) == array,
-        message: "Please provide correct abbreviations-outline argument: one or more pairs are not arrays.
-    Tip: if you have only one pair in the array, try to add a comma (,) after that element. Example: `abbreviations-outline: ((\"a\", \"b\"),)`")
-      assert(pair.len() == 2,
-        message: "Please provide correct abbreviations-outline argument: one or more pairs do not have exactly 2 elements.")
-      assert((type(pair.at(0)) == str or type(pair.at(0)) == content) and (type(pair.at(1)) == str or type(pair.at(1)) == content),
-        message: "Please provide correct abbreviations-outline argument: one or more pairs contain elements that are not strings or content.")
-    }
+  assert(
+    type(abbreviations-outline) == array,
+    message: "Please provide correct abbreviations-outline argument: either a string, or an array of pairs (\"abbreviation\", \"explanation\").",
+  )
+  for pair in abbreviations-outline {
+    assert(
+      type(pair) == array,
+      message: "Please provide correct abbreviations-outline argument: one or more pairs are not arrays.
+    Tip: if you have only one pair in the array, try to add a comma (,) after that element. Example: `abbreviations-outline: ((\"a\", \"b\"),)`",
+    )
+    assert(
+      pair.len() == 2,
+      message: "Please provide correct abbreviations-outline argument: one or more pairs do not have exactly 2 elements.",
+    )
+    assert(
+      (type(pair.at(0)) == str or type(pair.at(0)) == content)
+        and (type(pair.at(1)) == str or type(pair.at(1)) == content),
+      message: "Please provide correct abbreviations-outline argument: one or more pairs contain elements that are not strings or content.",
+    )
+  }
 
   let fields = locale.title-page.fields
   let values = locale.title-page.values
@@ -177,7 +198,7 @@
         #locale.faculty
       ],
       footer: supervisor-footer,
-      date: [#values.month.may #datetime.today().display("[year]")]
+      date: [#values.month.may #datetime.today().display("[year]")],
     )
   }
   // title page
@@ -195,9 +216,9 @@
         (left: fields.program, right: values.program.informatics),
         (left: fields.field, right: values.field.informatics),
         (left: fields.department, right: values.department.upai),
-        ..supervisor-footer
+        ..supervisor-footer,
       ),
-      date: [#values.month.may #datetime.today().display("[year]")]
+      date: [#values.month.may #datetime.today().display("[year]")],
     )
   }
 
@@ -207,7 +228,7 @@
     page(
       fill: tiling(size: (40pt, 40pt))[
         #place(line(start: (0%, 0%), end: (100%, 100%), stroke: 2pt + red))
-      ]
+      ],
     )[
       #set text(3em)
       #set par(justify: true)
@@ -226,7 +247,7 @@
     par(
       text(1.5em)[
         *#locale.acknowledgment*
-      ]
+      ],
     )
 
     text(1.1em)[
@@ -253,10 +274,10 @@
         grid.cell(
           rowspan: 2,
           align: start,
-          datetime.today().display("V Bratislave, [day].[month].[year]")
+          datetime.today().display("V Bratislave, [day].[month].[year]"),
         ),
         repeat("."),
-        author
+        author,
       )
     ]
   }
@@ -270,12 +291,20 @@
       title: slovak.annotation.title,
       university: slovak.university,
       faculty: slovak.faculty,
-      program: (left: slovak.title-page.fields.program, right: slovak.title-page.values.program.informatics),
+      program: (
+        left: slovak.title-page.fields.program,
+        right: slovak.title-page.values.program.informatics,
+      ),
       author: (left: slovak.annotation.author, right: author),
       thesis: (left: slovak.title-page.values.thesis.at(thesis), right: title),
-      supervisor: (left: slovak.title-page.fields.supervisor, right: supervisor),
-      date: [#slovak.title-page.values.month.may #datetime.today().display("[year]")],
-      abstract.sk
+      supervisor: (
+        left: slovak.title-page.fields.supervisor,
+        right: supervisor,
+      ),
+      date: [#slovak.title-page.values.month.may #(
+          datetime.today().display("[year]")
+        )],
+      abstract.sk,
     )
   }
   pagebreak() // intentional empty page
@@ -286,12 +315,20 @@
       title: locale.annotation.title,
       university: locale.university,
       faculty: locale.faculty,
-      program: (left: locale.title-page.fields.program, right: locale.title-page.values.program.informatics),
+      program: (
+        left: locale.title-page.fields.program,
+        right: locale.title-page.values.program.informatics,
+      ),
       author: (left: locale.annotation.author, right: author),
       thesis: (left: locale.title-page.values.thesis.at(thesis), right: title),
-      supervisor: (left: locale.title-page.fields.supervisor, right: supervisor),
-      date: [#locale.title-page.values.month.may #datetime.today().display("[year]")],
-      abstract.at(lang)
+      supervisor: (
+        left: locale.title-page.fields.supervisor,
+        right: supervisor,
+      ),
+      date: [#locale.title-page.values.month.may #(
+          datetime.today().display("[year]")
+        )],
+      abstract.at(lang),
     )
   }
 
@@ -300,7 +337,7 @@
   // table of contents
   set page(numbering: "i") // Roman numbering until the end of the contents
   show outline.entry.where(
-    level: 1
+    level: 1,
   ): it => {
     if it.element.func() == heading {
       // outline entry for the contents
@@ -350,7 +387,7 @@
     number-align: center,
     margin: 3cm,
     header: [
-      #context{
+      #context {
         let hdr = hydra(1)
         if hdr != none {
           emph(hdr)
@@ -358,25 +395,33 @@
           line(length: 100%)
         }
       }
-    ]
+    ],
   )
 
   // resume and plan of work are mandatory for the final theses
   context if thesis == "bp2" or thesis == "dp3" {
     let resume = query(
-      heading.where(level: 1).and(<resume>)
+      heading.where(level: 1).and(<resume>),
     )
     let plan-of-work = query(
-      heading.where(level: 1).and(<plan-of-work>)
+      heading.where(level: 1).and(<plan-of-work>),
     )
-    assert(resume.len() == 1 and resume.at(0).numbering == none or lang == "sk",
-      message: "Could not find <resume> label in your work. Please create a resume chapter in Slovak and mark it with the <resume> label.")
-    assert(lang != "sk" or resume.len() == 0,
-      message: "Theses in Slovak should not have a resume. If for some reason you need to have it, remove the <resume> label from its heading.")
-    assert(plan-of-work.len() == 1,
-      message: "Could not find <plan-of-work> label in your work. Please create a plan of work appendix and mark it with the <plan-of-work> label.")
-    assert(plan-of-work.at(0).numbering == "A.1",
-      message: "The plan of work (<plan-of-work> label) should be an appendix. Check if its numbering is right, did you forget to insert the appendix.typ snippet?")
+    assert(
+      resume.len() == 1 and resume.at(0).numbering == none or lang == "sk",
+      message: "Could not find <resume> label in your work. Please create a resume chapter in Slovak and mark it with the <resume> label.",
+    )
+    assert(
+      lang != "sk" or resume.len() == 0,
+      message: "Theses in Slovak should not have a resume. If for some reason you need to have it, remove the <resume> label from its heading.",
+    )
+    assert(
+      plan-of-work.len() == 1,
+      message: "Could not find <plan-of-work> label in your work. Please create a plan of work appendix and mark it with the <plan-of-work> label.",
+    )
+    assert(
+      plan-of-work.at(0).numbering == "A.1",
+      message: "The plan of work (<plan-of-work> label) should be an appendix. Check if its numbering is right, did you forget to insert the appendix.typ snippet?",
+    )
   }
   body
 }

@@ -1,7 +1,7 @@
 version: 3
 
 vars:
-  TYPST_PACKAGES: '{{ .XDG_DATA_HOME }}/typst/packages'
+  TYPST_PACKAGES: '{{.XDG_DATA_HOME | default (print .HOME "/.local/share") }}/typst/packages'
 
 tasks:
   template:
@@ -55,4 +55,3 @@ tasks:
     desc: "Uninstall the template from the @preview namespace cache"
     cmds:
       - rm {{.TYPST_PACKAGES}}/preview/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
-

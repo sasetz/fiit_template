@@ -12,8 +12,8 @@
   id: "FIIT-12345-123456",
   lang: "en", // this controls how the layout is presented, be careful!
   acknowledgment: [I would like to thank my supervisor for all the help and
-  guidance I have received. I would also like to thank my friends and family
-  for supporting during this work.],
+    guidance I have received. I would also like to thank my friends and family
+    for supporting during this work.],
   // remove the argument or leave the array empty to hide the list of
   // abbreviations
   abbreviations-outline: (
@@ -35,9 +35,10 @@
 
 #figure(
   caption: [FIIT logo in SVG file format for reference.],
-  pad(2em,
-    image("logo_fiit.svg", width: 50%)
-  )
+  pad(
+    2em,
+    image("logo_fiit.svg", width: 50%),
+  ),
 ) <fiit-logo>
 
 #lorem(150)
@@ -49,12 +50,12 @@
 #figure(
   caption: [This is an example of a code listing in your thesis.],
   [```c
-int main()
-{
-    printf("Hello World!\n");
-    return 0;
-}
-  ```]
+    int main()
+    {
+        printf("Hello World!\n");
+        return 0;
+    }
+    ```],
 ) <c-example>
 
 == Citation example
@@ -72,8 +73,8 @@ Here's an example: the source code for this project is recorded in
     columns: 2,
     table.header([*Left column*], [*Right column*]),
     [Some label], [Some data],
-    [Another label], [Another data]
-  )
+    [Another label], [Another data],
+  ),
 ) <c-example>
 
 #lorem(200)
@@ -100,7 +101,7 @@ Here's an example: the source code for this project is recorded in
 // WARN: translate the word "Appendix" to your language
 #let appendix-supplement = "Appendix"
 #set heading(numbering: "A.1", supplement: appendix-supplement)
-#show heading.where(level: 1) : it => {
+#show heading.where(level: 1): it => {
   set text(1.6em)
   set par(first-line-indent: 0em)
   pagebreak()

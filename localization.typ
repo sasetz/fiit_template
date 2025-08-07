@@ -2,7 +2,6 @@
   en: (
     university: "Slovak Technical University in Bratislava",
     faculty: "Faculty of Informatics and Information Technologies",
-
     title-page: (
       fields: (
         program: "Programme",
@@ -33,36 +32,29 @@
         ),
       ),
     ),
-
     annotation: (
       title: "Annotation",
       author: "Author",
     ),
-
     acknowledgment: "Acknowledgment",
-
     contents: (
       title: "Contents",
       tables: "List of tables",
       figures: "List of figures",
       abbreviations: "List of abbreviations",
     ),
-
     chapter: (
       title: "Chapter",
     ),
-
     figures: (
       raw: "Listing",
       table: "Table",
       figure: "Figure",
     ),
   ),
-
   sk: (
     university: "Slovenská technická univerzita v Bratislave",
     faculty: "Fakulta informatiky a informačných technológií",
-
     title-page: (
       fields: (
         program: "Študijný program",
@@ -84,7 +76,7 @@
         program: (
           informatics: "Informatika",
         ),
-        field:  (
+        field: (
           informatics: "Informatika",
         ),
         department: (
@@ -93,25 +85,20 @@
         ),
       ),
     ),
-
     annotation: (
       title: "Anotácia",
       author: "Autor",
     ),
-
     acknowledgment: "Poďakovanie",
-
     contents: (
       title: "Obsah",
       tables: "Zoznam tabuliek",
       figures: "Zoznam obrázkov",
       abbreviations: "Zoznam použitých skratiek",
     ),
-
     chapter: (
       title: "Kapitola",
     ),
-
     figures: (
       raw: "Výpis",
       table: "Tabuľka",
@@ -121,6 +108,9 @@
 )
 
 #let localization(lang: "sk") = {
-  assert(lang == "en" or lang == "sk", message: "please select a valid language for localization to work")
+  assert(
+    lang == "en" or lang == "sk",
+    message: "please select a valid language for localization to work",
+  )
   return literals.at(lang)
 }

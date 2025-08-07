@@ -7,9 +7,12 @@
   program: (left: "Študijný program", right: "Informatika"),
   author: (left: "Autor", right: "Jožko Mrkvička"),
   thesis: (left: "Záverečná práca", right: "Téma záverečnej práce"),
-  supervisor: (left: "Vedúci bakalárskeho projektu", right: "prof. Jožko Mrkvička"),
+  supervisor: (
+    left: "Vedúci bakalárskeho projektu",
+    right: "prof. Jožko Mrkvička",
+  ),
   date: "Máj 2025",
-  abstract
+  abstract,
 ) = {
   set text(1.1em)
   v(1fr)
@@ -53,20 +56,25 @@
   footer: (
     (left: "Študijný program", right: "Informatika"),
     (left: "Študijný odbor", right: "Informatika"),
-    (left: "Miesto vypracovania", right: "Ústav počítačového inžinierstva a aplikovanej informatiky"),
+    (
+      left: "Miesto vypracovania",
+      right: "Ústav počítačového inžinierstva a aplikovanej informatiky",
+    ),
     (left: "Vedúci práce", right: "Jožko Mrkvička"),
   ),
 ) = {
   // top header
-  align(center,
-    text(1.3em, header)
+  align(
+    center,
+    text(1.3em, header),
   )
   // ID display
   pad(
     top: 1.2em,
-    align(center,
-      text(1.3em, id)
-    )
+    align(
+      center,
+      text(1.3em, id),
+    ),
   )
 
   v(15em, weak: false)
@@ -74,19 +82,22 @@
   // author information
   pad(
     top: 0.7em,
-    align(center,
-        text(1.1em, author)
-    )
+    align(
+      center,
+      text(1.1em, author),
+    ),
   )
   // title of the paper
   v(1.2em, weak: false)
-  align(center,
-    text(1.3em, title)
+  align(
+    center,
+    text(1.3em, title),
   )
   // type of the paper
   v(1.2em, weak: false)
-  align(center,
-    text(1.2em, type)
+  align(
+    center,
+    text(1.2em, type),
   )
 
   // other data goes to the bottom
@@ -100,7 +111,7 @@
 
 #let list-of-abbreviations(
   title: "List of Abbreviations",
-  abbreviations: (("SSL", "Secure socket layer")),
+  abbreviations: ("SSL", "Secure socket layer"),
 ) = {
   pagebreak(weak: true)
   par(text(2.2em, strong(title)))
@@ -110,10 +121,11 @@
     column-gutter: 5em,
     row-gutter: 1.4em,
     ..abbreviations
-      .map(it => (
+      .map(
+        it => (
           strong(it.at(0)),
-          it.at(1)
-        )
+          it.at(1),
+        ),
       )
       .flatten()
   )
