@@ -175,8 +175,22 @@ assignment needs to be inserted into the final PDF.
 ### How to separate the thesis?
 
 The file needs to be separated into the main part, and the appendices part.
-You can use external tools for that. One tool that works is `pdfarrange` (GUI).
-CLI tools such as `pdftk` could also do the job.
+You can use external tools for that, or settle for Typst compiler arguments.
+The `--pages` argument to the CLI compiler can be used to specify which pages
+should be rendered for the output. In the examples, we use page 29 as the first
+appendix page.
+
+Here's an example how to split just your main part:
+
+```bash
+typst compile --pages=1-28 main.typ BP_JozkoMrkvicka.pdf
+```
+
+And your appendices part:
+
+```bash
+typst compile --pages=29- main.typ BP_prilohy_JozkoMrkvicka.pdf
+```
 
 ### How to insert the thesis assignment?
 
