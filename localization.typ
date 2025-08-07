@@ -51,7 +51,6 @@
       table: "Table",
       figure: "Figure",
     ),
-
     appendix: "Appendix",
   ),
   sk: (
@@ -106,7 +105,6 @@
       table: "Tabuľka",
       figure: "Obrázok",
     ),
-
     appendix: "Príloha",
   ),
 )

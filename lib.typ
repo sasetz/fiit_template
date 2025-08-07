@@ -442,7 +442,7 @@
   set heading(numbering: "A.1", supplement: context {
     localization(lang: _lang.get()).appendix
   })
-  show heading.where(level: 1) : it => {
+  show heading.where(level: 1): it => {
     set text(1.6em)
     set par(first-line-indent: 0em)
     pagebreak()
