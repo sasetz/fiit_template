@@ -14,6 +14,11 @@ document looks.
 
 The template is available in these languages: **Slovak** (sk), **English** (en)
 
+Theses that already use this template:
+
+- [Extending a RISC-V processor with bit instructions, Kirill Putiatin](https://opac.crzp.sk/?fn=detailBiblioForm&sid=BBB70232DB8D19E5F026BDDCF3EF)
+- [Development of an Adverse Media Screening System using Face Recognition via Existing APIs, Illia Chaban](https://opac.crzp.sk/?fn=detailBiblioForm&sid=BBB70232DB8D19E5F027B5DCF3EF)
+
 # Usage
 
 You can use [Typst's online editor](https://typst.app/) to edit and display
