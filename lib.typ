@@ -485,11 +485,13 @@
     )
   }
   assert(
-    type(style) == str and
-      (style == "regular" or
-      style == "compact" or
-      style == "legacy" or
-      style == "legacy-noncompliant"),
+    type(style) == str
+      and (
+        style == "regular"
+          or style == "compact"
+          or style == "legacy"
+          or style == "legacy-noncompliant"
+      ),
     message: "Please provide correct style of your thesis, possible options are: \"regular\", \"compact\", \"legacy\" and \"legacy-noncompliant\".",
   )
 
