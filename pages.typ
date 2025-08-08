@@ -112,8 +112,9 @@
 #let list-of-abbreviations(
   title: "List of Abbreviations",
   abbreviations: ("SSL", "Secure socket layer"),
+  use-binding: false,
 ) = {
-  pagebreak(weak: true)
+  pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
   par(text(2.2em, strong(title)))
   v(4em)
   grid(

@@ -66,8 +66,6 @@ Don't forget to intialize a Git repository and backup your work somewhere!
 | abbreviations-outline | `array` | `( ("SSL", "Secure socket layer"), ... )` | list of abbreviations, if you need one | |
 | disable-cover | `bool` | `false` | disable cover page (the first one) | |
 | regular-pages | `bool` | `false` | enable estimate for how many regular pages your thesis has | |
-| pretty-headings | `bool` | `true` | enable page breaks and large spaces around chapter headings | |
-| bibliography-style | `str` | `"iso-690-numeric"` | leave as default, other values are wrong | see [docs](https://typst.app/docs/reference/model/bibliography/#parameters-style) |
 
 ## Template
 
@@ -120,15 +118,6 @@ erases headers, title/abstract pages and figures. It wouldn't be a perfect page
 count, since it leaves the paragraphs and linebreaks, but it's still pretty
 accurate if you just want to quickly get the idea of how much text you really
 have.
-
-`pretty-headings` allows the headings to be on a new page, with pretty spaces
-aroung them. You can disable this option if you want your chapters appear more
-compact.
-
-`bibliography-style` should be left as default, because it is the only
-acceptable option by the faculty. If you still want your citations to look
-different, like square brackets instead of regular parenthesis, use this option
-at your own risk.
 
 ## Appendices
 

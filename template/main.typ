@@ -10,7 +10,7 @@
     en: lorem(150),
   ), // abstract
   id: "FIIT-12345-123456",
-  lang: "en", // this controls how the layout is presented, be careful!
+  lang: "sk", // this controls how the layout is presented, be careful!
   acknowledgment: [I would like to thank my supervisor for all the help and
     guidance I have received. I would also like to thank my friends and family
     for supporting during this work.],
@@ -23,11 +23,18 @@
   ),
   figures-outline: true,
   tables-outline: true,
+  style: "legacy-noncompliant",
 )
 
 = Introduction
 
-#lorem(150)
+#lorem(110)
+
+#lorem(100)
+
+#lorem(100)
+
+#lorem(120)
 
 = Analysis
 
@@ -86,11 +93,6 @@ Here's an example: the source code for this project is recorded in
 // has the right format, goes before appendices
 #bibliography("citations.bib")
 #pagebreak(weak: true)
-
-// don't forget to insert a resume if you're not using Slovak
-#resume()[
-  #lorem(250)
-]
 
 // start the appendices section with this line
 #show: section-appendices.with()

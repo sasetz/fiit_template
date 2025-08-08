@@ -3,11 +3,6 @@
 #import "localization.typ": localization
 // TODO: GLOBAL: consider breaking down the function into smaller pages to help
 // improve the customizability of the template
-// TODO: remake appendices:
-//    - add a function for appendix
-//    - make that function's body act like the appendix itself
-//    - offset headings inside appendices by one
-//    - reset heading counter on first appendix
 
 #let _lang = state("en")
 
@@ -44,21 +39,57 @@
   // remove everything except the text to count how many regular pages of text
   // you have
   regular-pages: false,
-  // enable page breaks and large spaces around chapter headings
-  pretty-headings: true,
-  // warning: do NOT change this option.
-  // If you change this option, it will make your thesis non-compliant to the
-  // faculty's requirements, as they clearly state that the bibliography should
-  // adgere to the ISO-690 standard
-  bibliography-style: "iso-690-numeric",
+  // style of the thesis
+  // options: "regular", "compact", "legacy", "legacy-noncompliant"
+  style: "legacy",
   body,
 ) = {
-  // TODO: add an option to add extra supervisors
+  ////////////////////////////////
+  // style handling
 
+  // regular style
+  let page-margins = 3cm
+  let bibliography-style = "iso-690-numeric"
+  let use-binding = false
+  let pretty-headings = true
+
+  let first-line-indent = 1em
+  let leading = 1.3em
+  let spacing = 1.5em
+  let footer-descent = 30% + 0pt
+  let header-ascent = 30% + 0pt
+
+  if style == "compact" {
+    page-margins = 2.5cm
+    pretty-headings = false
+  } else if style == "legacy" or style == "legacy-noncompliant" {
+    // general legacy styles
+    page-margins = (
+      inside: 1.5in,
+      outside: 1in,
+      top: 1.5in,
+      bottom: 2in,
+    )
+    use-binding = true
+    first-line-indent = 0em
+    leading = 1.1em
+    spacing = 2em
+    footer-descent = 2em
+    header-ascent = 2em
+  }
+
+  if style == "legacy-noncompliant" {
+    bibliography-style = "ieee"
+  }
+
+  ////////////////////////////////
+  // locale
   let locale = localization(lang: lang)
   let slovak = localization(lang: "sk")
   _lang.update(lang)
 
+  ////////////////////////////////
+  // regular pages handling
   show pagebreak: it => if regular-pages { none } else { it }
   show bibliography: it => if regular-pages { none } else { it }
   show outline: it => if regular-pages { none } else { it }
@@ -70,10 +101,13 @@
   show columns: it => if regular-pages { it.body } else { it }
   show align: it => if regular-pages { it.body } else { it }
 
-  // Set the document's basic properties.
+  ////////////////////////////////
+  // page setup
+
   set document(author: author, title: title)
-  set text(font: "New Computer Modern", lang: lang)
+  set text(1.1em, font: "New Computer Modern", lang: lang)
   show math.equation: set text(weight: 400)
+  set bibliography(style: bibliography-style)
 
   ////////////////////////////////
   // setup headings
@@ -89,15 +123,15 @@
     if not regular-pages {
       if pretty-headings and it.numbering != none {
         // pretty chapter
-        set text(1.6em)
+        set text(1.6em, weight: "medium")
         set par(first-line-indent: 0em)
 
-        pagebreak()
-        block(height: 5em)
+        pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
+        block(height: 3.4cm)
         [#locale.chapter.title #counter(heading).get().at(0)]
-        v(.5em)
+        v(.4cm)
         it.body
-        v(1.8em)
+        v(.7cm)
       } else if it.numbering != none {
         // ugly chapter
         it
@@ -106,7 +140,7 @@
         set text(1.6em)
         set par(first-line-indent: 0em)
 
-        pagebreak()
+        pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
         it.body
         v(1.8em)
       }
@@ -127,13 +161,7 @@
   set figure(supplement: figure-supplement)
 
   ////////////////////////////////
-  // bibliography
-  if bibliography-style != none {
-    set bibliography(style: bibliography-style)
-  }
-
-  ////////////////////////////////
-  // setup localization
+  // title page localization
   let fields = locale.title-page.fields
   let values = locale.title-page.values
 
@@ -163,6 +191,7 @@
       footer: supervisor-footer,
       date: [#values.month.may #datetime.today().display("[year]")],
     )
+    pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
   }
   ////////////////////////////////
   // title page
@@ -186,7 +215,8 @@
     )
   }
 
-  pagebreak() // intentional empty page
+  // intentional blank page
+  pagebreak(to: if use-binding { "odd" } else { none })
 
   ////////////////////////////////
   // warning for AIS assignment
@@ -209,7 +239,7 @@
     muchpdf(read(assignment, encoding: none))
   }
   pagebreak()
-  pagebreak() // intentional empty page
+  pagebreak() // intentional blank page
 
   ////////////////////////////////
   // acknowledgment
@@ -227,7 +257,7 @@
     ]
   }
   pagebreak()
-  pagebreak() // intentional empty page
+  pagebreak() // intentional blank page
 
   ////////////////////////////////
   // cestne vyhlasenie
@@ -255,7 +285,7 @@
     ]
   }
   pagebreak()
-  pagebreak() // intentional empty page
+  pagebreak() // intentional blank page
 
   ////////////////////////////////
   // even if the language is Slovak, the university requires students to provide
@@ -281,7 +311,7 @@
       abstract.sk,
     )
   }
-  pagebreak() // intentional empty page
+  pagebreak() // intentional blank page
 
   ////////////////////////////////
   // locale abstract
@@ -307,11 +337,11 @@
     )
   }
 
-  pagebreak() // intentional empty page
+  pagebreak() // intentional blank page
 
   ////////////////////////////////
   // table of contents
-  set page(numbering: "i") // Roman numbering until the end of the contents
+  set page(numbering: "i", margin: page-margins) // Roman numbering until the end of the contents
   show outline.entry.where(
     level: 1,
   ): it => {
@@ -343,9 +373,10 @@
     list-of-abbreviations(
       title: locale.contents.abbreviations,
       abbreviations: abbreviations-outline,
+      use-binding: use-binding,
     )
   }
-  set page(numbering: none)
+  set page(numbering: none, margin: page-margins)
   v(1fr) // if the page is full, this will be a pagebreak
   pagebreak(weak: true) // if the page is not full, this will be a pagebreak
   counter(page).update(1) // start of the main section
@@ -353,15 +384,15 @@
   ////////////////////////////////
   // main body
   set par(
-    first-line-indent: 1em,
+    first-line-indent: first-line-indent,
     justify: true,
-    leading: 1.3em,
-    spacing: 1.5em,
+    leading: leading,
+    spacing: spacing,
   )
   set page(
     numbering: "1",
     number-align: center,
-    margin: 3cm,
+    margin: page-margins,
     header: [
       #context {
         let hdr = hydra(1)
@@ -372,6 +403,8 @@
         }
       }
     ],
+    footer-descent: footer-descent,
+    header-ascent: header-ascent,
   )
 
   ////////////////////////////////
@@ -451,6 +484,14 @@
       message: "Please provide correct abbreviations-outline argument: one or more pairs contain elements that are not strings or content.",
     )
   }
+  assert(
+    type(style) == str and
+      (style == "regular" or
+      style == "compact" or
+      style == "legacy" or
+      style == "legacy-noncompliant"),
+    message: "Please provide correct style of your thesis, possible options are: \"regular\", \"compact\", \"legacy\" and \"legacy-noncompliant\".",
+  )
 
   body
 }
