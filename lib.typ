@@ -64,17 +64,17 @@
   let header-ascent = 30% + 0pt
   let header-margin = if is-legacy { -1.6em } else { -1em }
   let header = context {
-      let hdr = hydra(1)
-      if hdr != none {
-        if is-legacy {
-          hdr
-        } else {
-          emph(hdr)
-        }
-        v(header-margin)
-        line(length: 100%)
+    let hdr = hydra(1)
+    if hdr != none {
+      if is-legacy {
+        hdr
+      } else {
+        emph(hdr)
       }
+      v(header-margin)
+      line(length: 100%)
     }
+  }
 
   if style == "compact" {
     page-margins = 2.5cm
@@ -162,7 +162,10 @@
     } else if it.numbering != none {
       // compact
       pagebreak(weak: true)
-      [#it.supplement #numbering(it.numbering, counter(heading).get().at(0)) #linebreak() #it.body #linebreak()]
+      [#it.supplement #numbering(
+          it.numbering,
+          counter(heading).get().at(0),
+        ) #linebreak() #it.body #linebreak()]
       v(.5cm)
     } else {
       // bibliography/outline/etc.
