@@ -4,7 +4,9 @@
 // TODO: GLOBAL: consider breaking down the function into smaller pages to help
 // improve the customizability of the template
 
-#let _lang = state("en")
+#let _lang = state("lang")
+#let _is-legacy = state("is-legacy")
+#let _appendix-numbering = "A.1"
 
 #let fiit-thesis(
   // theme of your thesis
@@ -46,23 +48,41 @@
 ) = {
   ////////////////////////////////
   // style handling
+  let is-legacy = style == "legacy" or style == "legacy-noncompliant"
 
   // regular style
+  let text-size = 1.1em
   let page-margins = 3cm
   let bibliography-style = "iso-690-numeric"
   let use-binding = false
-  let pretty-headings = true
+  let regular-headings = true
 
   let first-line-indent = 1em
   let leading = 1.3em
   let spacing = 1.5em
   let footer-descent = 30% + 0pt
   let header-ascent = 30% + 0pt
+  let header-margin = if is-legacy { -1.6em } else { -1em }
+  let header = context {
+      let hdr = hydra(1)
+      if hdr != none {
+        if is-legacy {
+          hdr
+        } else {
+          emph(hdr)
+        }
+        v(header-margin)
+        line(length: 100%)
+      }
+    }
 
   if style == "compact" {
     page-margins = 2.5cm
-    pretty-headings = false
-  } else if style == "legacy" or style == "legacy-noncompliant" {
+    regular-headings = false
+    leading = 0.8em
+    spacing = 1.5em
+    text-size = 1.2em
+  } else if is-legacy {
     // general legacy styles
     page-margins = (
       inside: 1.5in,
@@ -87,6 +107,7 @@
   let locale = localization(lang: lang)
   let slovak = localization(lang: "sk")
   _lang.update(lang)
+  _is-legacy.update(is-legacy)
 
   ////////////////////////////////
   // regular pages handling
@@ -105,13 +126,13 @@
   // page setup
 
   set document(author: author, title: title)
-  set text(1.1em, font: "New Computer Modern", lang: lang)
+  set text(text-size, font: "New Computer Modern", lang: lang)
   show math.equation: set text(weight: 400)
   set bibliography(style: bibliography-style)
 
   ////////////////////////////////
   // setup headings
-  set heading(numbering: "1.1")
+  set heading(numbering: "1.1", supplement: locale.chapter.title)
   show heading: it => {
     if not regular-pages {
       v(1em)
@@ -120,30 +141,37 @@
     }
   }
   show heading.where(level: 1): it => {
-    if not regular-pages {
-      if pretty-headings and it.numbering != none {
-        // pretty chapter
-        set text(1.6em, weight: "medium")
-        set par(first-line-indent: 0em)
+    if regular-pages {
+      return
+    }
+    if regular-headings and it.numbering != none {
+      // regular, legacy and legacy-noncompliant
+      set text(1.6em, weight: if is-legacy { "medium" } else { "bold" })
+      set par(first-line-indent: 0em)
 
-        pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
-        block(height: 3.4cm)
-        [#locale.chapter.title #counter(heading).get().at(0)]
-        v(.4cm)
-        it.body
-        v(.7cm)
-      } else if it.numbering != none {
-        // ugly chapter
-        it
-      } else {
-        // bibliography/outline/etc.
-        set text(1.6em)
-        set par(first-line-indent: 0em)
-
-        pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
-        it.body
-        v(1.8em)
+      pagebreak(to: if use-binding { "odd" } else { none })
+      if it.numbering == _appendix-numbering and not is-legacy {
+        counter(page).update(1)
       }
+      pagebreak(weak: true)
+      block(height: 3.4cm)
+      [#it.supplement #numbering(it.numbering, counter(heading).get().at(0))]
+      v(.4cm)
+      it.body
+      v(.7cm)
+    } else if it.numbering != none {
+      // compact
+      pagebreak(weak: true)
+      [#it.supplement #numbering(it.numbering, counter(heading).get().at(0)) #linebreak() #it.body #linebreak()]
+      v(.5cm)
+    } else {
+      // bibliography/outline/etc.
+      set text(1.6em)
+      set par(first-line-indent: 0em)
+
+      pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
+      it.body
+      v(1.8em)
     }
   }
 
@@ -393,16 +421,7 @@
     numbering: "1",
     number-align: center,
     margin: page-margins,
-    header: [
-      #context {
-        let hdr = hydra(1)
-        if hdr != none {
-          emph(hdr)
-          v(-1em)
-          line(length: 100%)
-        }
-      }
-    ],
+    header: header,
     footer-descent: footer-descent,
     header-ascent: header-ascent,
   )
@@ -430,8 +449,8 @@
       message: "Could not find <plan-of-work> label in your work. Please create a plan of work appendix and mark it with the <plan-of-work> label.",
     )
     assert(
-      plan-of-work.at(0).numbering == "A.1",
-      message: "The plan of work (<plan-of-work> label) should be an appendix. Check if its numbering is right, did you forget to insert the appendix.typ snippet?",
+      plan-of-work.at(0).numbering == _appendix-numbering,
+      message: "The plan of work (<plan-of-work> label) should be an appendix. Check if its numbering is right, did you forget to use `#show: section-appendices.with()`?",
     )
   }
   assert(
@@ -501,32 +520,31 @@
 // functions that are used in the thesis
 
 #let section-appendices(body) = {
-  let appendix-numbering(first, ..) = [
-    #if counter(heading).get().at(0) != 0 [
-      #numbering("A.1", counter(heading).get().at(0))-#first
-    ]
-  ]
-  set page(numbering: appendix-numbering)
+  let appendix-page-numbering(first, ..) = {
+    // here, we don't need the `context` block. If we introduce it, it's going
+    // to make outline entries dirty: it will assume that we need to use
+    // current context, instead of the chapter's context
+    if _is-legacy.get() {
+      numbering("1", first)
+    } else if counter(heading).get().at(0) != 0 [
+      // if the first level heading is not zero, apply page numbering
+      #numbering(_appendix-numbering, counter(heading).get().at(0))-#first
+    ] else {
+      none
+    }
+  }
+  set page(numbering: appendix-page-numbering)
   // get the supplement from state
   // since getting a state value requires context, wrap the supplement into a
   // function
-  set heading(numbering: "A.1", supplement: context {
-    localization(lang: _lang.get()).appendix
+  set heading(numbering: _appendix-numbering, supplement: context {
+    let locale = localization(lang: _lang.get())
+    if _is-legacy.get() { locale.legacy-appendix } else { locale.appendix }
   })
-  show heading.where(level: 1): it => {
-    set text(1.6em)
-    set par(first-line-indent: 0em)
-    pagebreak()
-    counter(page).update(1)
-    pagebreak(weak: true)
-    block(height: 5em)
-    [*#it.supplement #numbering("A", counter(heading).get().at(0))*]
-    v(.5em)
-    it.body
-    v(1.8em)
-  }
   counter(heading).update(0)
-  counter(page).update(1)
+  context if not _is-legacy.get() {
+    counter(page).update(1)
+  }
   body
 }
 

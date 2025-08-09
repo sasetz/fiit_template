@@ -23,7 +23,7 @@
   ),
   figures-outline: true,
   tables-outline: true,
-  style: "legacy-noncompliant",
+  style: "legacy",
 )
 
 = Introduction
