@@ -13,7 +13,8 @@
   title: "Záverečná práca",
   // type of the thesis: "bp1", "bp2", "dp1", "dp2", "dp3"
   thesis: "bp2",
-  // a dictionary of type: <language_code>: <abstract>. "sk" value is always required
+  // a dictionary of type: <language_code>: <abstract>. Both "en" and "sk" are
+  // mandatory
   abstract: (
     sk: lorem(150),
     en: lorem(150),
@@ -106,6 +107,7 @@
   // locale
   let locale = localization(lang: lang)
   let slovak = localization(lang: "sk")
+  let english = localization(lang: "en")
   _lang.update(lang)
   _is-legacy.update(is-legacy)
 
@@ -345,26 +347,26 @@
   pagebreak() // intentional blank page
 
   ////////////////////////////////
-  // locale abstract
+  // english abstract
   if not regular-pages {
     abstract-page(
-      title: locale.annotation.title,
-      university: locale.university,
-      faculty: locale.faculty,
+      title: english.annotation.title,
+      university: english.university,
+      faculty: english.faculty,
       program: (
-        left: locale.title-page.fields.program,
-        right: locale.title-page.values.program.informatics,
+        left: english.title-page.fields.program,
+        right: english.title-page.values.program.informatics,
       ),
-      author: (left: locale.annotation.author, right: author),
-      thesis: (left: locale.title-page.values.thesis.at(thesis), right: title),
+      author: (left: english.annotation.author, right: author),
+      thesis: (left: english.title-page.values.thesis.at(thesis), right: title),
       supervisor: (
-        left: locale.title-page.fields.supervisor,
+        left: english.title-page.fields.supervisor,
         right: supervisor,
       ),
-      date: [#locale.title-page.values.month.may #(
+      date: [#english.title-page.values.month.may #(
           datetime.today().display("[year]")
         )],
-      abstract.at(lang),
+      abstract.en,
     )
   }
 
