@@ -80,8 +80,8 @@
           current-heading.body
         } else {
           current-heading.body
+          v(.8em)
         })
-        v(.8em)
       } else {
         emph(hdr)
       }
