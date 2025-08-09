@@ -114,9 +114,7 @@
   abbreviations: ("SSL", "Secure socket layer"),
   use-binding: false,
 ) = {
-  pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
-  par(text(2.2em, strong(title)))
-  v(4em)
+  heading(title, numbering: none)
   grid(
     columns: (auto, 1fr),
     column-gutter: 5em,
