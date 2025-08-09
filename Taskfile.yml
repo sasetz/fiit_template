@@ -4,7 +4,20 @@ vars:
   TYPST_PACKAGES: '{{.XDG_DATA_HOME | default (print .HOME "/.local/share") }}/typst/packages'
 
 tasks:
-  template:
+  push:
+    desc: "Prepare repository for push"
+    silent: true
+    cmds:
+      - task: build
+      - task: thumbnail
+
+  open:
+    desc: "Open current template result"
+    silent: true
+    cmds:
+      - open build/template.pdf
+
+  build:
     desc: "Build the template PDF"
     silent: true
     cmds:
@@ -12,13 +25,13 @@ tasks:
       - task: install-preview
       - echo "Compiling the template into PDF and opening it"
       - mkdir -p build
-      - typst compile template/main.typ build/template.pdf --open
+      - typst compile template/main.typ build/template.pdf
 
   watch:
     desc: "Build and watch the template"
     silent: true
     cmds:
-      - typst watch template/main.typ build/template.pdf --open
+      - typst watch template/main.typ build/template.pdf
 
   thumbnail:
     desc: "Build the package thumbnail"
