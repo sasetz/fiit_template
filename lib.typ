@@ -81,6 +81,7 @@
         } else {
           current-heading.body
         })
+        v(.8em)
       } else {
         emph(hdr)
       }
@@ -394,7 +395,13 @@
 
   ////////////////////////////////
   // table of contents
-  set page(numbering: "i", margin: page-margins) // Roman numbering until the end of the contents
+  set page(numbering: "i",
+    number-align: center,
+    margin: page-margins,
+    header: header,
+    footer-descent: footer-descent,
+    header-ascent: header-ascent,
+  ) // Roman numbering until the end of the contents
   show outline.entry.where(
     level: 1,
   ): it => {

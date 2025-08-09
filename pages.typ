@@ -114,7 +114,7 @@
   abbreviations: ("SSL", "Secure socket layer"),
   use-binding: false,
 ) = {
-  heading(title, numbering: none)
+  heading(title, numbering: none, outlined: false)
   grid(
     columns: (auto, 1fr),
     column-gutter: 5em,
