@@ -1,15 +1,13 @@
 #import "pages.typ": *
 #import "_pkgs.typ": muchpdf
 #import "localization.typ": localization
-// TODO: GLOBAL: consider breaking down the function into smaller pages to help
-// improve the customizability of the template
 
 #let _lang = state("lang")
 #let _is-legacy = state("is-legacy")
 #let _appendix-numbering = "A.1"
 
 #let fiit-thesis(
-  // theme of your thesis
+  // title of your thesis
   title: "Záverečná práca",
   // type of the thesis: "bp1", "bp2", "dp1", "dp2", "dp3"
   thesis: "bp2",
@@ -24,12 +22,14 @@
   // ID that you copied from AIS
   id: "FIIT-12345-123456",
   // full name of your thesis supervisor
-  supervisor: "prof. Jožko Mrkvička",
+  supervisor: "prof. Jozef Mrkva, PhD.",
   // supported values: "en", "sk"
   lang: "en",
   // acknowledgment text
-  acknowledgment: "Acknowledgment goes here",
-  // assignment from AIS file path
+  acknowledgment: [I would like to thank my supervisor for all the help and
+    guidance I have received. I would also like to thank my friends and family
+    for supporting during this work.],
+  // assignment from AIS file path. DO NOT USE THIS FOR FINAL HAND-IN
   assignment: none,
   // enable list of tables
   tables-outline: false,
@@ -68,7 +68,16 @@
     let hdr = hydra(1)
     if hdr != none {
       if is-legacy {
-        hdr
+        hydra(display: (_, current-heading) => if current-heading.numbering != none {
+          current-heading.supplement
+          [ ]
+          numbering(current-heading.numbering, counter(heading).at(current-heading.location()).at(0))
+          [. ]
+          current-heading.body
+        } else {
+          current-heading.body
+        }
+    )
       } else {
         emph(hdr)
       }
@@ -130,23 +139,29 @@
   set document(author: author, title: title)
   set text(text-size, font: "New Computer Modern", lang: lang)
   show math.equation: set text(weight: 400)
-  set bibliography(style: bibliography-style)
+  set bibliography(style: bibliography-style, title: locale.bibliography)
 
   ////////////////////////////////
   // setup headings
   set heading(numbering: "1.1", supplement: locale.chapter.title)
   show heading: it => {
     if not regular-pages {
-      v(1em)
-      it
-      v(0.75em)
+      if style != "compact" {
+        set text(1.1em, weight: "semibold")
+        numbering(it.numbering, ..counter(heading).at(it.location()))
+        h(0.6cm)
+        it.body
+        v(-.2cm)
+      } else {
+        it
+      }
     }
   }
   show heading.where(level: 1): it => {
     if regular-pages {
       return
     }
-    if regular-headings and it.numbering != none {
+    if regular-headings {
       // regular, legacy and legacy-noncompliant
       set text(1.6em, weight: if is-legacy { "medium" } else { "bold" })
       set par(first-line-indent: 0em)
@@ -156,27 +171,27 @@
         counter(page).update(1)
       }
       pagebreak(weak: true)
-      block(height: 3.4cm)
-      [#it.supplement #numbering(it.numbering, counter(heading).get().at(0))]
+      block(height: 2.8cm)
+      if it.numbering != none {
+        [#it.supplement #numbering(it.numbering, counter(heading).get().at(0))]
+        v(0cm)
+      }
+      it.body
       v(.4cm)
-      it.body
-      v(.7cm)
-    } else if it.numbering != none {
-      // compact
-      pagebreak(weak: true)
-      [#it.supplement #numbering(
-          it.numbering,
-          counter(heading).get().at(0),
-        ) #linebreak() #it.body #linebreak()]
-      v(.5cm)
     } else {
-      // bibliography/outline/etc.
-      set text(1.6em)
-      set par(first-line-indent: 0em)
-
-      pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
+      // compact
+      pagebreak()
+      counter(page).update(1)
+      pagebreak(weak: true)
+      if it.numbering != none {
+        it.supplement
+        [ ]
+        numbering(it.numbering, counter(heading).get().at(0))
+      }
+      linebreak()
       it.body
-      v(1.8em)
+      linebreak()
+      v(.5cm)
     }
   }
 
@@ -265,7 +280,9 @@
       external tools!
 
       You can also specify assignment's file path using the `assignment`
-      argument. This way is not recommended for final hand-in.
+      argument. Don't use this option for final hand-in! If you do hand in your
+      thesis with this option instead of inserting it through external tools,
+      you are doing so at your own risk. You have been warned.
     ]
   } else if not regular-pages {
     set page(margin: 0em)

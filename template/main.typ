@@ -38,6 +38,8 @@
 
 = Analysis
 
+== Intro to analysis
+
 #lorem(250)
 
 #figure(
@@ -93,6 +95,10 @@ Here's an example: the source code for this project is recorded in
 // has the right format, goes before appendices
 #bibliography("citations.bib")
 #pagebreak(weak: true)
+
+// #resume()[
+// #lorem(250)
+// ]
 
 // start the appendices section with this line
 #show: section-appendices.with()
