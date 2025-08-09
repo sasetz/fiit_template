@@ -395,7 +395,8 @@
 
   ////////////////////////////////
   // table of contents
-  set page(numbering: "i",
+  set page(
+    numbering: "i",
     number-align: center,
     margin: page-margins,
     header: header,
