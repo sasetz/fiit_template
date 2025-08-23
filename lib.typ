@@ -81,7 +81,7 @@
         } else {
           current-heading.body
           v(.8em)
-        })
+        }, skip-starting: false)
       } else {
         emph(hdr)
       }
@@ -141,7 +141,7 @@
   // page setup
 
   set document(author: author, title: title)
-  set text(text-size, font: "New Computer Modern", lang: lang)
+  set text(font: "New Computer Modern", lang: lang)
   show math.equation: set text(weight: 400)
   set bibliography(style: bibliography-style, title: locale.bibliography)
 
@@ -170,7 +170,7 @@
       set text(1.6em, weight: if is-legacy { "medium" } else { "bold" })
       set par(first-line-indent: 0em)
 
-      pagebreak(to: if use-binding { "odd" } else { none })
+      pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
       if it.numbering == _appendix-numbering and not is-legacy {
         counter(page).update(1)
       }
@@ -278,7 +278,7 @@
         #place(line(start: (0%, 0%), end: (100%, 100%), stroke: 2pt + red))
       ],
     )[
-      #set text(3em)
+      #set text(30pt)
       #set par(justify: true)
       Don't forget to replace this page with your AIS assignment PDF using
       external tools!
@@ -403,6 +403,9 @@
     footer-descent: footer-descent,
     header-ascent: header-ascent,
   ) // Roman numbering until the end of the contents
+  set text(
+    size: text-size,
+  )
   show outline.entry.where(
     level: 1,
   ): it => {
