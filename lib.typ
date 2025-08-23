@@ -68,23 +68,19 @@
     let hdr = hydra(1)
     if hdr != none {
       if is-legacy {
-        hydra(
-          display: (_, current-heading) => if current-heading.numbering
-            != none {
-            current-heading.supplement
-            [ ]
-            numbering(
-              current-heading.numbering,
-              counter(heading).at(current-heading.location()).at(0),
-            )
-            [. ]
-            current-heading.body
-          } else {
-            current-heading.body
-            v(.8em)
-          },
-          skip-starting: false,
-        )
+        hydra(display: (_, current-heading) => if current-heading.numbering
+          != none {
+          current-heading.supplement
+          [ ]
+          numbering(
+            current-heading.numbering,
+            counter(heading).at(current-heading.location()).at(0),
+          )
+          [. ]
+          current-heading.body
+        } else {
+          current-heading.body
+        }, skip-starting: false)
       } else {
         emph(hdr)
       }
@@ -398,6 +394,12 @@
 
   ////////////////////////////////
   // table of contents
+  set par(
+    first-line-indent: first-line-indent,
+    justify: true,
+    leading: leading,
+    spacing: spacing,
+  )
   set page(
     numbering: "i",
     number-align: center,
