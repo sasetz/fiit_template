@@ -187,7 +187,9 @@
     } else {
       // compact
       pagebreak()
-      counter(page).update(1)
+      if it.numbering == _appendix-numbering {
+        counter(page).update(1)
+      }
       pagebreak(weak: true)
       if it.numbering != none {
         it.supplement
