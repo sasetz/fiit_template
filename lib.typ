@@ -68,19 +68,22 @@
     let hdr = hydra(1)
     if hdr != none {
       if is-legacy {
-        hydra(display: (_, current-heading) => if current-heading.numbering
-          != none {
-          current-heading.supplement
-          [ ]
-          numbering(
-            current-heading.numbering,
-            counter(heading).at(current-heading.location()).at(0),
-          )
-          [. ]
-          current-heading.body
-        } else {
-          current-heading.body
-        }, skip-starting: false)
+        hydra(
+          display: (_, current-heading) => if current-heading.numbering
+            != none {
+            current-heading.supplement
+            [ ]
+            numbering(
+              current-heading.numbering,
+              counter(heading).at(current-heading.location()).at(0),
+            )
+            [. ]
+            current-heading.body
+          } else {
+            current-heading.body
+          },
+          skip-starting: false,
+        )
       } else {
         emph(hdr)
       }
