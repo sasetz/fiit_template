@@ -39,11 +39,9 @@
   abbreviations-outline: (),
   // set to "true" to disable the first (cover) sheet
   disable-cover: false,
-  // remove everything except the text to count how many regular pages of text
-  // you have
-  regular-pages: false,
   // style of the thesis
-  // options: "regular", "compact", "legacy", "legacy-noncompliant"
+  // options: "regular", "compact", "legacy", "legacy-noncompliant",
+  // "pagecount"
   style: "legacy",
   body,
 ) = {
@@ -66,7 +64,7 @@
   let header-margin = if is-legacy { -1.6em } else { -1em }
   let header = context {
     let hdr = hydra(1)
-    if hdr != none {
+    if hdr != none and style != "pagecount" {
       if is-legacy {
         hydra(
           display: (_, current-heading) => if current-heading.numbering
@@ -112,6 +110,10 @@
     spacing = 2em
     footer-descent = 2em
     header-ascent = 2em
+  } else if style == "pagecount" {
+    leading = 1.2em
+    spacing = leading
+    first-line-indent = 0em
   }
 
   if style == "legacy-noncompliant" {
@@ -128,16 +130,16 @@
 
   ////////////////////////////////
   // regular pages handling
-  show pagebreak: it => if regular-pages { none } else { it }
-  show bibliography: it => if regular-pages { none } else { it }
-  show outline: it => if regular-pages { none } else { it }
-  show figure: it => if regular-pages { none } else { it }
-  show colbreak: it => if regular-pages { none } else { it }
+  show pagebreak: it => if style == "pagecount" { none } else { it }
+  show bibliography: it => if style == "pagecount" { none } else { it }
+  show outline: it => if style == "pagecount" { none } else { it }
+  show figure: it => if style == "pagecount" { none } else { it }
+  show colbreak: it => if style == "pagecount" { none } else { it }
 
-  show list.item: it => if regular-pages { it.body } else { it }
-  show list: it => if regular-pages { it.body } else { it }
-  show columns: it => if regular-pages { it.body } else { it }
-  show align: it => if regular-pages { it.body } else { it }
+  show list.item: it => if style == "pagecount" { it.body } else { it }
+  show list: it => if style == "pagecount" { it.body } else { it }
+  show columns: it => if style == "pagecount" { it.body } else { it }
+  show align: it => if style == "pagecount" { it.body } else { it }
 
   ////////////////////////////////
   // page setup
@@ -151,7 +153,7 @@
   // setup headings
   set heading(numbering: "1.1", supplement: locale.chapter.title)
   show heading: it => {
-    if not regular-pages {
+    if style != "pagecount" {
       if style != "compact" {
         set text(1.1em, weight: "semibold")
         numbering(it.numbering, ..counter(heading).at(it.location()))
@@ -164,7 +166,7 @@
     }
   }
   show heading.where(level: 1): it => {
-    if regular-pages {
+    if style == "pagecount" {
       return
     }
     if regular-headings {
@@ -234,7 +236,7 @@
 
   ////////////////////////////////
   // cover sheet
-  if not disable-cover and not regular-pages {
+  if not disable-cover and style != "pagecount" {
     title-page(
       id: id,
       author: author,
@@ -251,7 +253,7 @@
   }
   ////////////////////////////////
   // title page
-  if not regular-pages {
+  if style != "pagecount" {
     title-page(
       id: id,
       author: author,
@@ -276,7 +278,7 @@
 
   ////////////////////////////////
   // warning for AIS assignment
-  if not regular-pages and assignment == none {
+  if style != "pagecount" and assignment == none {
     page(
       fill: tiling(size: (40pt, 40pt))[
         #place(line(start: (0%, 0%), end: (100%, 100%), stroke: 2pt + red))
@@ -292,7 +294,7 @@
       thesis with this option instead of inserting it through external tools,
       you are doing so at your own risk. You have been warned.
     ]
-  } else if not regular-pages {
+  } else if style != "pagecount" {
     set page(margin: 0em)
     muchpdf(read(assignment, encoding: none))
   }
@@ -301,7 +303,7 @@
 
   ////////////////////////////////
   // acknowledgment
-  if not regular-pages {
+  if style != "pagecount" {
     v(1fr)
     par(
       text(1.5em)[
@@ -319,7 +321,7 @@
 
   ////////////////////////////////
   // cestne vyhlasenie
-  if not regular-pages {
+  if style != "pagecount" {
     v(1fr)
     text(1.1em)[
       Čestne vyhlasujem, že som túto prácu vypracoval(a) samostatne, na základe
@@ -348,7 +350,7 @@
   ////////////////////////////////
   // even if the language is Slovak, the university requires students to provide
   // both versions of the abstract
-  if not regular-pages {
+  if style != "pagecount" {
     abstract-page(
       title: slovak.annotation.title,
       university: slovak.university,
@@ -373,7 +375,7 @@
 
   ////////////////////////////////
   // english abstract
-  if not regular-pages {
+  if style != "pagecount" {
     abstract-page(
       title: english.annotation.title,
       university: english.university,
@@ -443,7 +445,7 @@
   if tables-outline {
     outline(title: locale.contents.tables, target: figure.where(kind: table))
   }
-  if abbreviations-outline.len() > 0 and not regular-pages {
+  if abbreviations-outline.len() > 0 and style != "pagecount" {
     list-of-abbreviations(
       title: locale.contents.abbreviations,
       abbreviations: abbreviations-outline,
@@ -556,8 +558,9 @@
           or style == "compact"
           or style == "legacy"
           or style == "legacy-noncompliant"
+          or style == "pagecount"
       ),
-    message: "Please provide correct style of your thesis, possible options are: \"regular\", \"compact\", \"legacy\" and \"legacy-noncompliant\".",
+    message: "Please provide correct style of your thesis, possible options are: \"regular\", \"compact\", \"legacy\", \"legacy-noncompliant\" and \"pagecount\".",
   )
 
   body
