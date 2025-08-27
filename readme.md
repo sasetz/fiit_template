@@ -1,7 +1,7 @@
 
 # FIIT Thesis Template with Typst
 
-Status: in development ⚙️
+Status: finished 🎉
 
 ---
 
