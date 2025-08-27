@@ -42,7 +42,7 @@
   // style of the thesis
   // options: "regular", "compact", "legacy", "legacy-noncompliant",
   // "pagecount"
-  style: "legacy",
+  style: "regular",
   body,
 ) = {
   ////////////////////////////////

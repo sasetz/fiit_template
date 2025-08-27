@@ -74,7 +74,7 @@ Don't forget to intialize a Git repository and backup your work somewhere!
 | figures-outline | `bool` | `false` | enable figures outline | |
 | abbreviations-outline | `array` | `( ("SSL", "Secure socket layer"), ... )` | list of abbreviations, if you need one | |
 | disable-cover | `bool` | `false` | disable cover page (the first one) | |
-| regular-pages | `bool` | `false` | enable estimate for how many regular pages your thesis has | |
+| style | enum (`str`) | `regular` | select style of the document | `"regular"`, `"legacy"`, `"compact"`, `"pagecount"`, `"legacy-noncompliant"` |
 
 ## Template
 
@@ -121,12 +121,14 @@ explicitly empty, the list of abbreviations will not show.
 `disable-cover` lets you disable the first (cover) page of the thesis. That's
 it.
 
-`regular-pages` is a boolean that allows you to estimate the length of your
-thesis in "regular" pages. It disables most of the formatting, completely
-erases headers, title/abstract pages and figures. It wouldn't be a perfect page
-count, since it leaves the paragraphs and linebreaks, but it's still pretty
-accurate if you just want to quickly get the idea of how much text you really
-have.
+`style` selects the style of the document. The style affects mostly cosmetic
+parameters. Here are the possible options:
+
+- `regular`: the default, inspired by the LaTeX template, embraces the digital format
+- `legacy`: fully devoted to imitating the old LaTeX template, virtually no differences
+- `compact`: tighter layout with less empty space wasted, useful if your thesis is long
+- `pagecount`: apply this one to estimate how many pages of pure text you got
+- `legacy-noncompliant`: **don't use this one.** It uses the same citation standard (IEEE) that the old LaTeX template used, but it is not approved by FIIT STU
 
 ## Appendices
 
