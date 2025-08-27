@@ -1,4 +1,4 @@
-#import "@preview/fiit-thesis:0.1.0": *
+#import "@preview/fiit-thesis:1.0.0": *
 
 #show: fiit-thesis.with(
   title: "Moja záverečná práca",
@@ -43,10 +43,10 @@
 #lorem(250)
 
 #figure(
-  caption: [FIIT logo in SVG file format for reference.],
+  caption: [Imagine here FIIT logo in SVG file format for reference.],
   pad(
     2em,
-    image("logo_fiit.svg", width: 50%),
+    block(fill: color.aqua, width: 200pt, height: 100pt, radius: 15pt),
   ),
 ) <fiit-logo>
 
