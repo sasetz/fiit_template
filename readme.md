@@ -9,8 +9,7 @@ This is a Typst template for writing a thesis at the Faculty of Informatics and
 Information Technologies (FIIT) in Slovak Technical University in Bratislava
 (STU). The template was crafted using the for the
 [official requirements and conditions, as of May 2025](https://www.fiit.stuba.sk/studium/bakalarsky-projekt/bp.html?page_id=1862)
-provided by the faculty, with [this LaTeX template] being the basis for how the
-document looks.
+provided by the faculty, with [this LaTeX template](https://www.overleaf.com/latex/templates/stu-fiit-bachelor-thesis-template-slovak-university-of-technology/pppyykvvhqgq) being the basis for how the document looks.
 
 The template is available in these languages: **Slovak** (sk), **English** (en)
 
