@@ -45,6 +45,14 @@ tasks:
       - typst compile --ppi 250 template/main.typ '{{.TEMP_DIR}}/example{n}.png'
       - mv {{.TEMP_DIR}}/example01.png thumbnail.png
 
+  showcase:
+    desc: "Watch the template showcase"
+    silent: true
+    cmds:
+      - echo "Building the images..."
+      - mkdir -p showcase
+      - typst watch --ppi 250 template/main.typ 'showcase/page{n}.png'
+
   install-local:
     desc: "Install or update the template locally"
     cmds:
