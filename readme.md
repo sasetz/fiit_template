@@ -20,8 +20,10 @@ Theses that already use this template:
 
 # Showcase
 
-Here's a quick look on different template **styles**. You can choose whatever
-style you want, it's up to your personal preference.
+Here's a quick look on different template **styles**. You can choose any one of
+these styles, it's up to your personal preference. The previews are just for
+visual clarity, they are going to be slightly different from the final
+documents.
 
 | `legacy` | `regular` | `compact` |
 | ------------- | -------------- | -------------- |
@@ -197,8 +199,8 @@ You might notice the warning page in the thesis right after you load the
 template. This page can be removed by specifying an assignment file path. Typst
 doesn't support inserting PDFs into documents, but package `muchpdf` partially
 solves this issue. However, due to how it works (renders the PDF into an SVG),
-we cannot recommend using this option. This rendering erases text data from the
-PDF, and automated AIS tools most likely rely on those.
+**we cannot recommend using this option.** This rendering erases text data from
+the PDF, and automated AIS tools most likely rely on those.
 
 To get rid of the warning page, use external tools like `pdfarrange` (GUI) and
 `pdftk` (CLI).
@@ -208,17 +210,19 @@ To get rid of the warning page, use external tools like `pdfarrange` (GUI) and
 To develop the template, you should install [Task](https://taskfile.dev/). Here
 are the tasks that you can run:
 
-- `template`: compile the template example
+- `push`: run this before pushing
+- `build`: compile the template example
 - `watch`: watch the template example
+- `open`: open the template example in your system default viewer
 - `thumbnail`: compile the template thumbnail
 - `install-local`: install the package into @local namespace
 - `uninstall-local`: uninstall the package from @local namespace
 - `install-preview`: install the package into @preview namespace
 - `uninstall-preview`: uninstall the package from @preview namespace
 
-If you want to help out, take a look at the TODOs that are littered throughout
-the code. If you found a bug or something we could improve upon, feel free to
-open an issue on GitHub.
+If you want to help, you can take a look at the GitHub issues in the template
+repository. If anything goes wrong, feel free to open a new issue or contact
+me directly.
 
 # Contact
 
