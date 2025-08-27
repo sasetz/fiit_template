@@ -4,6 +4,7 @@
 
 #let _lang = state("lang")
 #let _is-legacy = state("is-legacy")
+#let _style = state("style")
 #let _appendix-numbering = "A.1"
 
 #let fiit-thesis(
@@ -126,10 +127,10 @@
   let slovak = localization(lang: "sk")
   let english = localization(lang: "en")
   _lang.update(lang)
-  _is-legacy.update(is-legacy)
+  _style.update(style)
 
   ////////////////////////////////
-  // regular pages handling
+  // pagecount handling
   show pagebreak: it => if style == "pagecount" { none } else { it }
   show bibliography: it => if style == "pagecount" { none } else { it }
   show outline: it => if style == "pagecount" { none } else { it }
@@ -573,7 +574,8 @@
     // here, we don't need the `context` block. If we introduce it, it's going
     // to make outline entries dirty: it will assume that we need to use
     // current context, instead of the chapter's context
-    if _is-legacy.get() {
+    let is-legacy = _style.get() == "legacy" or _style.get() == "legacy-noncompliant"
+    if is-legacy {
       numbering("1", first)
     } else if counter(heading).get().at(0) != 0 [
       // if the first level heading is not zero, apply page numbering
@@ -588,12 +590,14 @@
   // function
   set heading(numbering: _appendix-numbering, supplement: context {
     let locale = localization(lang: _lang.get())
-    if _is-legacy.get() { locale.legacy-appendix } else { locale.appendix }
+    if _style.get() == "legacy" or _style.get() == "legacy-noncompliant" { locale.legacy-appendix } else { locale.appendix }
   })
   counter(heading).update(0)
-  context if not _is-legacy.get() {
+  context if not _style.get() == "legacy" or _style.get() == "legacy-noncompliant" {
     counter(page).update(1)
   }
+  // appendices don't add up to page count
+  show text: it => context if _style.get() == "pagecount" { none } else { it }
   body
 }
 
