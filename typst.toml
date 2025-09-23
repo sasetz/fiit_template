@@ -3,13 +3,13 @@ name = "fiit-thesis"
 version = "1.0.0"
 entrypoint = "lib.typ"
 authors = ["Sasetz <https://github.com/sasetz>"]
-license = "MIT"
+license = "MIT-0"
 description = "Bachelor's or master's thesis at FIIT, Slovak University of Technology."
 repository = "https://github.com/sasetz/fiit_template"
 keywords = ["fiit", "stu"]
 categories = ["thesis"]
 disciplines = ["education"]
-exclude = ["build/*"]
+exclude = ["/build/*"]
 
 [template]
 path = "template"
