@@ -31,7 +31,7 @@
   linebreak()
   text([#thesis.left: #thesis.right])
   linebreak()
-  
+
   // handle multiple supervisors
   if type(supervisor) == dictionary {
     text([#supervisor.left: #supervisor.right])
@@ -42,7 +42,7 @@
       linebreak()
     }
   }
-  
+
   text(date)
   v(1.5em)
 
