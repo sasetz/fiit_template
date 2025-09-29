@@ -31,8 +31,18 @@
   linebreak()
   text([#thesis.left: #thesis.right])
   linebreak()
-  text([#supervisor.left: #supervisor.right])
-  linebreak()
+  
+  // handle multiple supervisors
+  if type(supervisor) == dictionary {
+    text([#supervisor.left: #supervisor.right])
+    linebreak()
+  } else if type(supervisor) == array {
+    for pair in supervisor {
+      text([#pair.at(0): #pair.at(1)])
+      linebreak()
+    }
+  }
+  
   text(date)
   v(1.5em)
 
