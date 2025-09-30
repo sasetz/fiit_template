@@ -27,9 +27,7 @@
   // supported values: "en", "sk"
   lang: "en",
   // acknowledgment text
-  acknowledgment: [I would like to thank my supervisor for all the help and
-    guidance I have received. I would also like to thank my friends and family
-    for supporting during this work.],
+  acknowledgment: none,
   // assignment from AIS file path. DO NOT USE THIS FOR FINAL HAND-IN
   assignment: none,
   // enable list of tables
@@ -343,21 +341,16 @@
 
   ////////////////////////////////
   // acknowledgment
-  if style != "pagecount" {
+  if style != "pagecount" and acknowledgment != none {
     v(1fr)
-    par(
-      text(1.5em)[
-        *#locale.acknowledgment*
-      ],
-    )
-
+    par(text(1.5em)[ *#locale.acknowledgment* ])
     text(1.1em)[
       #acknowledgment
       #v(1.5em)
     ]
+    pagebreak()
+    pagebreak() // intentional blank page
   }
-  pagebreak()
-  pagebreak() // intentional blank page
 
   ////////////////////////////////
   // cestne vyhlasenie
@@ -651,4 +644,3 @@
   }
   body
 }
-
