@@ -225,50 +225,11 @@
   ////////////////////////////////
   // process potential multiple supervisors
   let supervisor-footer = ()
-  let supervisor-abstract-sk = none
-  let supervisor-abstract-en = none
-
-  let translate-supervisor-role(role, locale) = {
-    let supervisors = locale.title-page.fields.supervisors
-    if supervisors.keys().contains(role) {
-      supervisors.at(role)
-    } else {
-      role
-    }
-  }
-
-  let get-default-supervisor-label(locale) = {
-    locale.title-page.fields.supervisors.supervisor
-  }
-
   if type(supervisor) == str {
-    // single supervisor - use default supervisor label (backward compatibility)
-    let sk-label = slovak.title-page.fields.supervisors.supervisor
-    let en-label = english.title-page.fields.supervisors.supervisor
-    let current-label = get-default-supervisor-label(locale)
-
-    supervisor-footer = ((left: current-label, right: supervisor),)
-    supervisor-abstract-sk = (left: sk-label, right: supervisor)
-    supervisor-abstract-en = (left: en-label, right: supervisor)
+    supervisor-footer = ((left: fields.supervisor, right: supervisor),)
   } else if type(supervisor) == array {
-    supervisor-abstract-sk = ()
-    supervisor-abstract-en = ()
-
     for pair in supervisor {
-      let role = pair.at(0)
-      let name = pair.at(1)
-
-      // for footer (uses current language)
-      let translated-role = translate-supervisor-role(role, locale)
-      supervisor-footer.push((left: translated-role, right: name))
-
-      // for sk abstract
-      let sk-role = translate-supervisor-role(role, slovak)
-      supervisor-abstract-sk.push((sk-role, name))
-
-      // for en abstract
-      let en-role = translate-supervisor-role(role, english)
-      supervisor-abstract-en.push((en-role, name))
+      supervisor-footer.push((left: pair.at(0), right: pair.at(1)))
     }
   }
 
@@ -394,7 +355,10 @@
       ),
       author: (left: slovak.annotation.author, right: author),
       thesis: (left: slovak.title-page.values.thesis.at(thesis), right: title),
-      supervisor: supervisor-abstract-sk,
+      supervisor: (
+        left: slovak.title-page.fields.supervisor,
+        right: supervisor,
+      ),
       date: [#slovak.title-page.values.month.may #(
           datetime.today().display("[year]")
         )],
@@ -416,7 +380,10 @@
       ),
       author: (left: english.annotation.author, right: author),
       thesis: (left: english.title-page.values.thesis.at(thesis), right: title),
-      supervisor: supervisor-abstract-en,
+      supervisor: (
+        left: english.title-page.fields.supervisor,
+        right: supervisor,
+      ),
       date: [#english.title-page.values.month.may #(
           datetime.today().display("[year]")
         )],

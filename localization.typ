@@ -7,15 +7,7 @@
         program: "Programme",
         field: "Study field",
         department: "Department",
-        supervisors: (
-          // supervisor roles - add new ones here
-          supervisor: "Supervisor",
-          faculty-supervisor: "Faculty supervisor",
-          consultant: "Consultant",
-          company-supervisor: "Company supervisor",
-          external-supervisor: "External supervisor",
-          // ...
-        ),
+        supervisor: "Supervisor",
       ),
       values: (
         month: (
@@ -71,15 +63,7 @@
         program: "Študijný program",
         field: "Študijný odbor",
         department: "Miesto vypracovania",
-        supervisors: (
-          // supervisor roles - add new ones here
-          supervisor: "Vedúci práce",
-          faculty-supervisor: "Fakultný vedúci práce",
-          consultant: "Konzultant",
-          company-supervisor: "Firemný vedúci práce",
-          external-supervisor: "Externý vedúci práce",
-          // ...
-        ),
+        supervisor: "Vedúci práce",
       ),
       values: (
         month: (
