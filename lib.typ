@@ -26,6 +26,10 @@
   supervisor: "prof. Jozef Mrkva, PhD.",
   // supported values: "en", "sk"
   lang: "en",
+  // month of the hand-in
+  month: 5,
+  // current date for declaration and year of handing-in
+  current-date: datetime.today(),
   // acknowledgment text
   acknowledgment: none,
   // assignment from AIS file path. DO NOT USE THIS FOR FINAL HAND-IN
@@ -126,6 +130,12 @@
   let english = localization(lang: "en")
   _lang.update(lang)
   _style.update(style)
+
+  assert(
+    type(month) == int and month >= 1 and month <= 12,
+    message: "Month should be an integer between 1 and 12",
+  )
+  month = month - 1 // convert to array index
 
   ////////////////////////////////
   // pagecount handling
@@ -259,7 +269,7 @@
         #locale.faculty
       ],
       footer: supervisor-footer,
-      date: [#values.month.may #datetime.today().display("[year]")],
+      date: [#values.month.at(month) #current-date.display("[year]")],
     )
     pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
   }
@@ -281,7 +291,7 @@
         (left: fields.department, right: values.department.upai),
         ..supervisor-footer,
       ),
-      date: [#values.month.may #datetime.today().display("[year]")],
+      date: [#values.month.at(month) #current-date.display("[year]")],
     )
   }
 
@@ -344,7 +354,7 @@
         grid.cell(
           rowspan: 2,
           align: start,
-          datetime.today().display("V Bratislave, [day].[month].[year]"),
+          current-date.display("V Bratislave, [day].[month].[year]"),
         ),
         repeat("."),
         author,
@@ -372,8 +382,8 @@
       author: (left: slovak.annotation.author, right: author),
       thesis: (left: slovak.title-page.values.thesis.at(thesis), right: title),
       supervisor: supervisors-sk,
-      date: [#slovak.title-page.values.month.may #(
-          datetime.today().display("[year]")
+      date: [#slovak.title-page.values.month.at(month) #(
+          current-date.display("[year]")
         )],
       abstract.sk,
     )
@@ -394,8 +404,8 @@
       author: (left: english.annotation.author, right: author),
       thesis: (left: english.title-page.values.thesis.at(thesis), right: title),
       supervisor: supervisors-en,
-      date: [#english.title-page.values.month.may #(
-          datetime.today().display("[year]")
+      date: [#english.title-page.values.month.at(month) #(
+          current-date.display("[year]")
         )],
       abstract.en,
     )

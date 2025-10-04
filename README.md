@@ -69,6 +69,8 @@ Don't forget to intialize a Git repository and backup your work somewhere!
 | abstract | `dict` | `( sk: lorem(150), en: lorem(150) )` | abstract in two languages | keys are the language, with `str` as values |
 | id | `str` | `"FIIT-12345-123456"` | id from AIS | |
 | lang | enum(`str`) | `"en"` | language of your thesis | `"sk"`, `"en"` |
+| month | `int` | `5` | month of the hand-in | 1-12 |
+| current-date | `datetime` | `datetime.today()` | declaration date and year of the work | |
 | acknowledgment | `str` or `none` | `"Omitted"` | thanks at the start of the thesis | |
 | assignment | path | `none` | recommended to leave as default, see "How to insert the thesis assignment?" | |
 | tables-outline | `bool` | `false` | enable tables outline | |
@@ -123,6 +125,14 @@ in Typst.
 
 `acknowledgment` sets the acknowledgment text. You can write anything you want
 here.
+
+`month` lets you select which month you hand in the thesis. For most people
+it's May (5), but if you selected the new format with an article, you may need
+to choose a different month. Just pick a number and it will automatically
+insert the correct month for you.
+
+`current-date` is Typst's `datetime` that tells when the declaration will be
+signed, and which year the thesis is being written.
 
 `assignment` sets the assignment PDF file path. This isn't the ideal way to
 insert your assignment from AIS, see "How to insert the thesis assignment?"
