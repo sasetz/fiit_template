@@ -33,7 +33,7 @@ documents.
 
 You can use [Typst's online editor](https://typst.app/) to edit and display
 your thesis. [Sign up](https://typst.app/signup), sign in and click "Start from
-template". Search for "fiit-thesis" and start writing!
+template". Search for "vintage-fiit-thesis" and start writing!
 
 ## Building your thesis locally
 
@@ -43,7 +43,7 @@ If you're on Linux, it should be pretty easy.
 2. Next, initialize the template using:
 
 ```bash
-typst init @preview/fiit-thesis
+typst init @preview/vintage-fiit-thesis
 ```
 
 3. Start watching the changes of your thesis using:

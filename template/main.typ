@@ -1,4 +1,4 @@
-#import "@preview/fiit-thesis:1.0.0": *
+#import "@preview/vintage-fiit-thesis:1.0.0": *
 
 #show: fiit-thesis.with(
   title: "Moja záverečná práca",
