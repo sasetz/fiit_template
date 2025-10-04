@@ -8,8 +8,11 @@ Status: publishing to Universe...
 This is a Typst template for writing bachelor's thesis and diploma at the
 Faculty of Informatics and Information Technologies (FIIT) in Slovak Technical
 University in Bratislava (STU). The template was crafted using the for the
-[official requirements and conditions, as of May 2025](https://www.fiit.stuba.sk/studium/bakalarsky-projekt/bp.html?page_id=1862)
-provided by the faculty, with [this LaTeX template](https://www.overleaf.com/latex/templates/stu-fiit-bachelor-thesis-template-slovak-university-of-technology/pppyykvvhqgq) being the basis for how the document looks.
+[official requirements and conditions, as of May 2025] provided by the faculty,
+with [this LaTeX template] being the basis for how the document looks.
+
+[official requirements and conditions, as of May 2025]: https://www.fiit.stuba.sk/studium/bakalarsky-projekt/bp.html?page_id=1862
+[this LaTeX template]: https://www.overleaf.com/latex/templates/stu-fiit-bachelor-thesis-template-slovak-university-of-technology/pppyykvvhqgq
 
 **This template also supports the new format of Bachelor's thesis!**
 
@@ -17,8 +20,11 @@ The template is available in these languages: **Slovak** (sk), **English** (en)
 
 Theses that already use this template:
 
-- [Extending a RISC-V processor with bit instructions, Kirill Putiatin](https://opac.crzp.sk/?fn=detailBiblioForm&sid=BBB70232DB8D19E5F026BDDCF3EF)
-- [Development of an Adverse Media Screening System using Face Recognition via Existing APIs, Illia Chaban](https://opac.crzp.sk/?fn=detailBiblioForm&sid=BBB70232DB8D19E5F027B5DCF3EF)
+- [Extending a RISC-V processor with bit instructions, Kirill Putiatin]
+- [Development of an Adverse Media Screening System using Face Recognition via Existing APIs, Illia Chaban]
+
+[Extending a RISC-V processor with bit instructions, Kirill Putiatin]: https://opac.crzp.sk/?fn=detailBiblioForm&sid=BBB70232DB8D19E5F026BDDCF3EF
+[Development of an Adverse Media Screening System using Face Recognition via Existing APIs, Illia Chaban]: https://opac.crzp.sk/?fn=detailBiblioForm&sid=BBB70232DB8D19E5F027B5DCF3EF
 
 # Showcase
 
@@ -39,8 +45,10 @@ template". Search for "vintage-fiit-thesis" and start writing!
 
 ## Building your thesis locally
 
-1. [Install Typst](https://github.com/typst/typst?tab=readme-ov-file#installation).
+1. [Install Typst][typst].
 If you're on Linux, it should be pretty easy.
+
+[typst]: https://github.com/typst/typst?tab=readme-ov-file#installation
 
 2. Next, initialize the template using:
 
@@ -56,7 +64,9 @@ typst watch main.typ --watch
 4. Begin writing your thesis!
 
 If you're new to Typst, we recommend to start reading the [Typst
-tutorial](https://typst.app/docs/tutorial/).
+tutorial][typst-tutorial].
+
+[typst-tutorial]: https://typst.app/docs/tutorial/
 
 Don't forget to intialize a Git repository and backup your work somewhere!
 
@@ -254,5 +264,7 @@ me directly.
 
 # Contact
 
-If you have any questions, feel free to contact me: [Sasetz](https://github.com/sasetz/)
+If you have any questions, feel free to contact me: [Sasetz][sasetz]
+
+[sasetz]: https://github.com/sasetz/
 
