@@ -224,14 +224,21 @@
 
   ////////////////////////////////
   // process potential multiple supervisors
-  let supervisor-footer = ()
+  let supervisors-sk = ()
+  let supervisors-en = ()
   if type(supervisor) == str {
-    supervisor-footer = ((left: fields.supervisor, right: supervisor),)
-  } else if type(supervisor) == array {
-    for pair in supervisor {
-      supervisor-footer.push((left: pair.at(0), right: pair.at(1)))
+    supervisors-sk = ((left: slovak.title-page.fields.supervisor, right: supervisor),)
+    supervisors-en = ((left: english.title-page.fields.supervisor, right: supervisor),)
+  } else if type(supervisor) == dictionary {
+    for pair in supervisor.sk {
+      supervisors-sk.push((left: pair.at(0), right: pair.at(1)))
+    }
+    for pair in supervisor.en {
+      supervisors-en.push((left: pair.at(0), right: pair.at(1)))
     }
   }
+  // localized supervisors
+  let supervisor-footer = if lang == "en" { supervisors-en } else { supervisors-sk }
 
   ////////////////////////////////
   // cover sheet
@@ -344,6 +351,9 @@
   ////////////////////////////////
   // even if the language is Slovak, the university requires students to provide
   // both versions of the abstract
+
+  ////////////////////////////////
+  // slovak abstract
   if style != "pagecount" {
     abstract-page(
       title: slovak.annotation.title,
@@ -355,10 +365,7 @@
       ),
       author: (left: slovak.annotation.author, right: author),
       thesis: (left: slovak.title-page.values.thesis.at(thesis), right: title),
-      supervisor: (
-        left: slovak.title-page.fields.supervisor,
-        right: supervisor,
-      ),
+      supervisor: supervisors-sk,
       date: [#slovak.title-page.values.month.may #(
           datetime.today().display("[year]")
         )],
@@ -380,10 +387,7 @@
       ),
       author: (left: english.annotation.author, right: author),
       thesis: (left: english.title-page.values.thesis.at(thesis), right: title),
-      supervisor: (
-        left: english.title-page.fields.supervisor,
-        right: supervisor,
-      ),
+      supervisor: supervisors-en,
       date: [#english.title-page.values.month.may #(
           datetime.today().display("[year]")
         )],
@@ -505,14 +509,24 @@
   )
   if type(supervisor) != str {
     assert(
-      type(supervisor) == array,
-      message: "Please provide correct supervisor argument: either a string, or an array of pairs (\"position\", \"name\").",
+      type(supervisor) == dictionary,
+      message: "Please provide correct supervisor argument: either a string, or localized array of pairs (\"position\", \"name\").",
     )
-    for pair in supervisor {
+    assert(
+      supervisor.keys().len() == 2 and
+      supervisor.keys().contains("sk") and supervisor.keys().contains("en") and
+      type(supervisor.sk) == array and type(supervisor.en) == array,
+      message: "Please provide correct localization dictionary. Example: `(sk: <array>, en: <array>)`"
+    )
+    assert(
+      supervisor.sk.len() == supervisor.en.len(),
+      message: "Supervisor localizations don't match! Number of supervisors differs in localizations."
+    )
+    for pair in supervisor.sk + supervisor.en {
       assert(
         type(pair) == array,
         message: "Please provide correct supervisor argument: one or more pairs are not arrays.
-    Tip: if you have only one pair in the array, try to add a comma (,) after that element. Example: `supervisor: ((\"a\", \"b\"),)`",
+    Tip: if you have only one pair in the array, add a comma (,) after that element. Example: `supervisor: ((\"a\", \"b\"),)`",
       )
       assert(
         pair.len() == 2,

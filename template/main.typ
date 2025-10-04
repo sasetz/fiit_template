@@ -4,7 +4,16 @@
   title: "Moja záverečná práca",
   thesis: "bp2",
   author: "Jožko Mrkvička",
-  supervisor: "prof. Jozef Mrkva, PhD.",
+  supervisor: (
+    sk: (
+      ("Vedúci práce", "Ing. John Doe"),
+      ("Fakultný vedúci", "prof. Jozef Mrkva, PhD."),
+    ),
+    en: (
+      ("Supervisor", "Ing. John Doe"),
+      ("Faculty advisor", "prof. Jozef Mrkva, PhD."),
+    ),
+  ),
   abstract: (
     sk: lorem(150),
     en: lorem(150),

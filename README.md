@@ -65,11 +65,11 @@ Don't forget to intialize a Git repository and backup your work somewhere!
 | title | `str` | `"Moja záverečná práca"` | thesis title | |
 | thesis | enum (`str`) | `"bp2"` | type of your thesis | `"bp1"`, `"bp2"`, `"dp1"`, `"dp2"`, `"dp3"` |
 | author | `str` | `"Jožko Mrkvička"` | your name | |
-| supervisor | `str` or `array` of `str` | `"prof. Jozef Mrkva, PhD."` | your supervisor | `str` if you have one supervisor, `array` if many |
+| supervisor | `str` or `dictionary` of `array` | `"prof. Jozef Mrkva, PhD."` | your supervisor | `str` if you have one supervisor, localized `dictionary` if many |
 | abstract | `dict` | `( sk: lorem(150), en: lorem(150) )` | abstract in two languages | keys are the language, with `str` as values |
 | id | `str` | `"FIIT-12345-123456"` | id from AIS | |
 | lang | enum(`str`) | `"en"` | language of your thesis | `"sk"`, `"en"` |
-| acknowledgment | `str` | `"Omitted"` | thanks at the start of the thesis | |
+| acknowledgment | `str` or `none` | `"Omitted"` | thanks at the start of the thesis | |
 | assignment | path | `none` | recommended to leave as default, see "How to insert the thesis assignment?" | |
 | tables-outline | `bool` | `false` | enable tables outline | |
 | figures-outline | `bool` | `false` | enable figures outline | |
@@ -87,11 +87,27 @@ an unsupported language, the template will generate a compile error.
 Next, you should insert general info for your thesis: `title`, `author`, `id`,
 `supervisor`. They are pretty straight-forward, so just write the correct data
 into them. `id` is your thesis ID number from the informational system.
+
 `supervisor` supports two options: either one supervisor's name as a string,
-or an array of pairs, where each pair contains position of the supervisor and
-their name. With the second option, you can add multiple supervisors, but
-please make sure that you write the positions in the language of the rest of
-the thesis.
+or multiple supervisors with localization. The latter option is achieved using
+a localized array of pairs. Example:
+
+```typst
+  // ...
+  supervisor: (
+    sk: (
+      ("Vedúci práce", "Ing. John Doe"),
+      ("Fakultný vedúci", "prof. Jozef Mrkva, PhD."),
+      // ...
+    ),
+    en: (
+      ("Supervisor", "Ing. John Doe"),
+      ("Faculty advisor", "prof. Jozef Mrkva, PhD."),
+      // ...
+    ),
+  ),
+  // ...
+```
 
 `thesis` selects the type of your work. The allowed values are: `bp1`, `bp2`,
 `dp1`, `dp2`, `dp3`. These values control what text is displayed on the title
