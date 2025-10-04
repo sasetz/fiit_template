@@ -227,8 +227,12 @@
   let supervisors-sk = ()
   let supervisors-en = ()
   if type(supervisor) == str {
-    supervisors-sk = ((left: slovak.title-page.fields.supervisor, right: supervisor),)
-    supervisors-en = ((left: english.title-page.fields.supervisor, right: supervisor),)
+    supervisors-sk = (
+      (left: slovak.title-page.fields.supervisor, right: supervisor),
+    )
+    supervisors-en = (
+      (left: english.title-page.fields.supervisor, right: supervisor),
+    )
   } else if type(supervisor) == dictionary {
     for pair in supervisor.sk {
       supervisors-sk.push((left: pair.at(0), right: pair.at(1)))
@@ -238,7 +242,9 @@
     }
   }
   // localized supervisors
-  let supervisor-footer = if lang == "en" { supervisors-en } else { supervisors-sk }
+  let supervisor-footer = if lang == "en" { supervisors-en } else {
+    supervisors-sk
+  }
 
   ////////////////////////////////
   // cover sheet
@@ -513,14 +519,16 @@
       message: "Please provide correct supervisor argument: either a string, or localized array of pairs (\"position\", \"name\").",
     )
     assert(
-      supervisor.keys().len() == 2 and
-      supervisor.keys().contains("sk") and supervisor.keys().contains("en") and
-      type(supervisor.sk) == array and type(supervisor.en) == array,
-      message: "Please provide correct localization dictionary. Example: `(sk: <array>, en: <array>)`"
+      supervisor.keys().len() == 2
+        and supervisor.keys().contains("sk")
+        and supervisor.keys().contains("en")
+        and type(supervisor.sk) == array
+        and type(supervisor.en) == array,
+      message: "Please provide correct localization dictionary. Example: `(sk: <array>, en: <array>)`",
     )
     assert(
       supervisor.sk.len() == supervisor.en.len(),
-      message: "Supervisor localizations don't match! Number of supervisors differs in localizations."
+      message: "Supervisor localizations don't match! Number of supervisors differs in localizations.",
     )
     for pair in supervisor.sk + supervisor.en {
       assert(

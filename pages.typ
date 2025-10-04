@@ -103,12 +103,17 @@
 
   // other data goes to the bottom
   v(1fr, weak: false)
-  grid(columns: (auto, 1fr),
+  grid(
+    columns: (auto, 1fr),
     row-gutter: 1.2em,
-    ..(footer.map(it =>
-        (text(1.1em, [#it.left:]), align(end + top, text(1.1em, it.right)))
-      )
-      .flatten())
+    ..(
+      footer
+        .map(it => (
+          text(1.1em, [#it.left:]),
+          align(end + top, text(1.1em, it.right)),
+        ))
+        .flatten()
+    )
   )
 
   text(1.1em, date)
