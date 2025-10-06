@@ -1,7 +1,7 @@
 
 # Faculty of Informatics and Information Technologies (FIIT) Thesis Template
 
-Status: publishing to Universe...
+Status: Ready to use 🎉
 
 ---
 
