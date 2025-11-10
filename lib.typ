@@ -3,7 +3,6 @@
 #import "localization.typ": localization
 
 #let _lang = state("lang")
-#let _is-legacy = state("is-legacy")
 #let _style = state("style")
 #let _appendix-numbering = "A.1"
 
@@ -324,19 +323,6 @@
   pagebreak() // intentional blank page
 
   ////////////////////////////////
-  // acknowledgment
-  if style != "pagecount" and acknowledgment != none {
-    v(1fr)
-    par(text(1.5em)[ *#locale.acknowledgment* ])
-    text(1.1em)[
-      #acknowledgment
-      #v(1.5em)
-    ]
-    pagebreak()
-    pagebreak() // intentional blank page
-  }
-
-  ////////////////////////////////
   // cestne vyhlasenie
   if style != "pagecount" {
     v(1fr)
@@ -363,6 +349,19 @@
   }
   pagebreak()
   pagebreak() // intentional blank page
+
+  ////////////////////////////////
+  // acknowledgment
+  if style != "pagecount" and acknowledgment != none {
+    v(1fr)
+    par(text(1.5em)[ *#locale.acknowledgment* ])
+    text(1.1em)[
+      #acknowledgment
+      #v(1.5em)
+    ]
+    pagebreak()
+    pagebreak() // intentional blank page
+  }
 
   ////////////////////////////////
   // even if the language is Slovak, the university requires students to provide

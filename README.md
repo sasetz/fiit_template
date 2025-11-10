@@ -177,7 +177,7 @@ be considered an appendix and numbered accordingly. You can add nested headings
 as usual, they will be numbered and labeled correctly.
 
 ```typst
-#show: section-appendices.with()
+#show: section-appendices
 ```
 
 To reference the appendix, just use regular Typst referencing. The word

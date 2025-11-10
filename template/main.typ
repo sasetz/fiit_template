@@ -1,4 +1,4 @@
-#import "@preview/vintage-fiit-thesis:1.0.0": *
+#import "@preview/vintage-fiit-thesis:1.1.0": *
 
 #show: fiit-thesis.with(
   title: "Moja záverečná práca",
@@ -102,9 +102,10 @@ Here's an example: the source code for this project is recorded in
 // ]
 
 // start the appendices section with this line
-#show: section-appendices.with()
+#show: section-appendices
 
 = Source code <source-code>
+
 #lorem(150)
 
 = Plan of work <plan-of-work>

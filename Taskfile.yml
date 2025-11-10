@@ -56,7 +56,7 @@ tasks:
   install-local:
     desc: "Install or update the template locally"
     cmds:
-      - rm --force -s $(pwd) {{.TYPST_PACKAGES}}/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
+      - rm --force {{.TYPST_PACKAGES}}/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
       - mkdir -p {{.TYPST_PACKAGES}}/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); print $2}' typst.toml)
       - ln -s $(pwd) {{.TYPST_PACKAGES}}/local/$(awk -F ' = ' '/name/ {gsub(/"/, "", $2); name=$2} /version/ {gsub(/"/, "", $2); print name "/" $2}' typst.toml)
 
