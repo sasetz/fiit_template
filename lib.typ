@@ -1,5 +1,5 @@
 #import "pages.typ": *
-#import "_pkgs.typ": muchpdf
+#import "_pkgs.typ": hydra.hydra
 #import "localization.typ": localization
 
 #let _lang = state("lang")
@@ -31,7 +31,7 @@
   current-date: datetime.today(),
   // acknowledgment text
   acknowledgment: none,
-  // assignment from AIS file path. DO NOT USE THIS FOR FINAL HAND-IN
+  // assignment from AIS file path.
   assignment: none,
   // enable list of tables
   tables-outline: false,
@@ -298,7 +298,11 @@
   pagebreak(to: if use-binding { "odd" } else { none })
 
   ////////////////////////////////
-  // warning for AIS assignment
+  // AIS assignment
+  assert(
+    assignment == none or type(assignment) == str and assignment.ends-with(".pdf"),
+    message: "For final stage of your thesis, please provide an assignment PDF file. Its name should end in `.pdf`"
+  )
   if style != "pagecount" and assignment == none {
     page(
       fill: tiling(size: (40pt, 40pt))[
@@ -307,17 +311,14 @@
     )[
       #set text(30pt)
       #set par(justify: true)
-      Don't forget to replace this page with your AIS assignment PDF using
-      external tools!
+      Don't forget to replace this page with your AIS assignment PDF by
+      specifying assignment's file path using the `assignment` argument.
 
-      You can also specify assignment's file path using the `assignment`
-      argument. Don't use this option for final hand-in! If you do hand in your
-      thesis with this option instead of inserting it through external tools,
-      you are doing so at your own risk. You have been warned.
+      Typst supports inserting PDFs with embedded text!
     ]
   } else if style != "pagecount" {
     set page(margin: 0em)
-    muchpdf(read(assignment, encoding: none))
+    image(assignment, format: "pdf")
   }
   pagebreak()
   pagebreak() // intentional blank page
