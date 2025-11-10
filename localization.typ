@@ -7,7 +7,8 @@
         program: "Programme",
         field: "Study field",
         department: "Department",
-        supervisor: "Supervisor",
+        supervisor-bachelors: "Supervisor",
+        supervisor-masters: "Supervisor",
       ),
       values: (
         month: (
@@ -25,8 +26,8 @@
           "December",
         ),
         thesis: (
-          bp2: "Bachelor thesis",
-          dp3: "Diploma thesis",
+          bp2: "Bachelor's thesis",
+          dp3: "Master's thesis",
           bp1: "Interim report on BP1",
           dp1: "Interim report on DP1",
           dp2: "Interim report on DP2",
@@ -74,7 +75,8 @@
         program: "Študijný program",
         field: "Študijný odbor",
         department: "Miesto vypracovania",
-        supervisor: "Vedúci práce",
+        supervisor-bachelors: "Vedúci bakalárskej práce",
+        supervisor-masters: "Vedúci diplomovej práce",
       ),
       values: (
         month: (

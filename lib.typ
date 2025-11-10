@@ -237,10 +237,10 @@
   let supervisors-en = ()
   if type(supervisor) == str {
     supervisors-sk = (
-      (left: slovak.title-page.fields.supervisor, right: supervisor),
+      (left: if thesis.starts-with("bp") {slovak.title-page.fields.supervisor-bachelors} else {slovak.title-page.fields.supervisor-masters}, right: supervisor),
     )
     supervisors-en = (
-      (left: english.title-page.fields.supervisor, right: supervisor),
+      (left: if thesis.starts-with("bp") {english.title-page.fields.supervisor-bachelors} else {english.title-page.fields.supervisor-masters}, right: supervisor),
     )
   } else if type(supervisor) == dictionary {
     for pair in supervisor.sk {
