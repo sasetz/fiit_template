@@ -238,11 +238,12 @@ thesis into multiple parts. We can recommend `pdfarrange` (GUI) and `pdftk`
 ### How to insert the thesis assignment?
 
 You might notice the warning page in the thesis right after you load the
-template. This page can be removed by specifying an assignment file path. Typst
+template. This page can be removed by specifying an assignment file. Typst
 supports importing PDFs as images as of version `0.14.0`, including the
 embedded text. Since version `1.1.0`, you can use this option to specify your
 assignment from AIS. You can download it from the thesis' page, choose the
-print option.
+print option. Assignment should be passed like this: `assignment: image("topic.pdf")`.
+Ensure it is exactly one page!
 
 # Developing
 

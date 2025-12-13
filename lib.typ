@@ -55,7 +55,7 @@
   let text-size = 1.1em
   let page-margins = 3cm
   let bibliography-style = "iso-690-numeric"
-  let use-binding = false
+  let use-binding = true
   let regular-headings = true
 
   let first-line-indent = 1em
@@ -160,19 +160,20 @@
   ////////////////////////////////
   // setup headings
   set heading(numbering: "1.1", supplement: locale.chapter.title)
-  show heading: it => {
+  show heading: it => block({
     if style != "pagecount" {
       if style != "compact" {
+        v(0.25cm)
         set text(1.1em, weight: "semibold")
         numbering(it.numbering, ..counter(heading).at(it.location()))
-        h(0.6cm)
+        h(0.3cm)
         it.body
-        v(-.2cm)
+        v(0.2cm)
       } else {
         it
       }
     }
-  }
+  })
   show heading.where(level: 1): it => {
     if style == "pagecount" {
       return
@@ -300,8 +301,8 @@
   ////////////////////////////////
   // AIS assignment
   assert(
-    assignment == none or type(assignment) == str and assignment.ends-with(".pdf"),
-    message: "For final stage of your thesis, please provide an assignment PDF file. Its name should end in `.pdf`"
+    assignment == none or type(assignment) == content,
+    message: "For final stage of your thesis, please provide an assignment PDF file as `image(\"my.pdf\")`."
   )
   if style != "pagecount" and assignment == none {
     page(
@@ -318,7 +319,7 @@
     ]
   } else if style != "pagecount" {
     set page(margin: 0em)
-    image(assignment, format: "pdf")
+    assignment
   }
   pagebreak()
   pagebreak() // intentional blank page
