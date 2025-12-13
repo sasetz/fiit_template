@@ -238,10 +238,20 @@
   let supervisors-en = ()
   if type(supervisor) == str {
     supervisors-sk = (
-      (left: if thesis.starts-with("bp") {slovak.title-page.fields.supervisor-bachelors} else {slovak.title-page.fields.supervisor-masters}, right: supervisor),
+      (
+        left: if thesis.starts-with("bp") {
+          slovak.title-page.fields.supervisor-bachelors
+        } else { slovak.title-page.fields.supervisor-masters },
+        right: supervisor,
+      ),
     )
     supervisors-en = (
-      (left: if thesis.starts-with("bp") {english.title-page.fields.supervisor-bachelors} else {english.title-page.fields.supervisor-masters}, right: supervisor),
+      (
+        left: if thesis.starts-with("bp") {
+          english.title-page.fields.supervisor-bachelors
+        } else { english.title-page.fields.supervisor-masters },
+        right: supervisor,
+      ),
     )
   } else if type(supervisor) == dictionary {
     for pair in supervisor.sk {
@@ -302,7 +312,7 @@
   // AIS assignment
   assert(
     assignment == none or type(assignment) == content,
-    message: "For final stage of your thesis, please provide an assignment PDF file as `image(\"my.pdf\")`."
+    message: "For final stage of your thesis, please provide an assignment PDF file as `image(\"my.pdf\")`.",
   )
   if style != "pagecount" and assignment == none {
     page(
