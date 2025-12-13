@@ -160,19 +160,20 @@
   ////////////////////////////////
   // setup headings
   set heading(numbering: "1.1", supplement: locale.chapter.title)
-  show heading: it => {
+  show heading: it => block({
     if style != "pagecount" {
       if style != "compact" {
+        v(0.25cm)
         set text(1.1em, weight: "semibold")
         numbering(it.numbering, ..counter(heading).at(it.location()))
-        h(0.6cm)
+        h(0.3cm)
         it.body
-        v(-.2cm)
+        v(0.2cm)
       } else {
         it
       }
     }
-  }
+  })
   show heading.where(level: 1): it => {
     if style == "pagecount" {
       return
