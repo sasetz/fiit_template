@@ -55,7 +55,7 @@
   let text-size = 1.1em
   let page-margins = 3cm
   let bibliography-style = "iso-690-numeric"
-  let use-binding = false
+  let use-binding = true
   let regular-headings = true
 
   let first-line-indent = 1em
