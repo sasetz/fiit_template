@@ -183,7 +183,13 @@
       set text(1.6em, weight: if is-legacy { "medium" } else { "bold" })
       set par(first-line-indent: 0em)
 
-      pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
+      {
+        set page(header: none, numbering: none)
+        pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
+      }
+      if counter(heading).get().at(0) == 1 {
+        counter(page).update(1)
+      }
       if it.numbering == _appendix-numbering and not is-legacy {
         counter(page).update(1)
       }
