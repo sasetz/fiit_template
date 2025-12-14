@@ -163,7 +163,6 @@
   show heading: it => block({
     if style != "pagecount" {
       if style != "compact" {
-        v(0.25cm)
         set text(1.1em, weight: "semibold")
         numbering(it.numbering, ..counter(heading).at(it.location()))
         h(0.3cm)
