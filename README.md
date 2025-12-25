@@ -264,6 +264,18 @@ If you want to help, you can take a look at the GitHub issues in the template
 repository. If anything goes wrong, feel free to open a new issue or contact
 me directly.
 
+# Changelog
+
+### v1.1.0
+
+- replaced `muchpdf` assignment rendering with Typst's 0.14 PDF image rendering. Now it is the preferred way to include assignments
+- the template now requires Typst 0.14
+- added binding to all styles, as per the new requirements
+- chapters now always start on new odd pages, as per the new requirements
+- empty pages do not contain page number, as per the new requirements
+- fixed annotation localization
+- various formatting fixes and compliance improvements (thanks @Ddystopia)
+
 # Contact
 
 If you have any questions, feel free to contact me: [Sasetz][sasetz]
