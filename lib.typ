@@ -91,6 +91,11 @@
       line(length: 100%)
     }
   }
+  let footer-with-bound-numbering = context {
+    let (n,) = counter(page).get()
+    set align(if calc.even(n) { left } else { right })
+    if page.numbering != none { counter(page).display(page.numbering) }
+  }
 
   if style == "compact" {
     page-margins = 2.5cm
@@ -202,7 +207,7 @@
       v(.4cm)
     } else {
       // compact
-      pagebreak()
+      pagebreak(to: "odd", weak: true)
       if it.numbering == _appendix-numbering {
         counter(page).update(1)
       }
@@ -288,6 +293,7 @@
     )
     pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
   }
+  counter(page).update(1)
   ////////////////////////////////
   // title page
   if style != "pagecount" {
@@ -444,6 +450,7 @@
     header: header,
     footer-descent: footer-descent,
     header-ascent: header-ascent,
+    footer: footer-with-bound-numbering,
   ) // Roman numbering until the end of the contents
   set text(
     size: text-size,
@@ -502,6 +509,7 @@
     header: header,
     footer-descent: footer-descent,
     header-ascent: header-ascent,
+    footer: footer-with-bound-numbering,
   )
 
   ////////////////////////////////
