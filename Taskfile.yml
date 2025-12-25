@@ -10,6 +10,8 @@ tasks:
     cmds:
       - task: build
       - task: thumbnail
+      - git add -A
+      - git diff HEAD
 
   open:
     desc: "Open current template result"
@@ -23,7 +25,7 @@ tasks:
     cmds:
       - echo "Installing the package into @preview namespace..."
       - task: install-preview
-      - echo "Compiling the template into PDF and opening it"
+      - echo "Compiling the template into PDF"
       - mkdir -p build
       - typst compile template/main.typ build/template.pdf
 
