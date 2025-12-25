@@ -194,7 +194,7 @@
       if counter(heading).get().at(0) == 1 {
         counter(page).update(1)
       }
-      if it.numbering == _appendix-numbering and not is-legacy {
+      if it.numbering == _appendix-numbering {
         counter(page).update(1)
       }
       pagebreak(weak: true)
@@ -619,22 +619,12 @@
 // functions that are used in the thesis
 
 #let section-appendices(body) = {
-  let appendix-page-numbering(first, ..) = {
+  let appendix-page-numbering(first, ..) = [
     // here, we don't need the `context` block. If we introduce it, it's going
     // to make outline entries dirty: it will assume that we need to use
     // current context, instead of the chapter's context
-    let is-legacy = (
-      _style.get() == "legacy" or _style.get() == "legacy-noncompliant"
-    )
-    if is-legacy {
-      numbering("1", first)
-    } else if counter(heading).get().at(0) != 0 [
-      // if the first level heading is not zero, apply page numbering
-      #numbering(_appendix-numbering, counter(heading).get().at(0))-#first
-    ] else {
-      none
-    }
-  }
+    #numbering(_appendix-numbering, counter(heading).get().at(0))-#first
+  ]
   set page(numbering: appendix-page-numbering)
   // get the supplement from state
   // since getting a state value requires context, wrap the supplement into a
@@ -646,11 +636,6 @@
     } else { locale.appendix }
   })
   counter(heading).update(0)
-  context if (
-    not _style.get() == "legacy" or _style.get() == "legacy-noncompliant"
-  ) {
-    counter(page).update(1)
-  }
   // appendices don't add up to page count
   show text: it => context if _style.get() == "pagecount" { none } else { it }
   body
