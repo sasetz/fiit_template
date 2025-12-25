@@ -1,14 +1,14 @@
 
 # Faculty of Informatics and Information Technologies (FIIT) Thesis Template
 
-Status: Ready to use 🎉
+Status: 🎉 Newest requirements are met! Works for both old and new formats 🎉
 
 ---
 
-This is a Typst template for writing bachelor's thesis and diploma at the
+This is a Typst template for writing bachelor's and master's thesis at the
 Faculty of Informatics and Information Technologies (FIIT) in Slovak Technical
 University in Bratislava (STU). The template was crafted using the for the
-[official requirements and conditions, as of May 2025] provided by the faculty,
+[official requirements and conditions, as of December 2025] provided by the faculty,
 with [this LaTeX template] being the basis for how the document looks.
 
 [official requirements and conditions, as of May 2025]: https://www.fiit.stuba.sk/studium/bakalarsky-projekt/bp.html?page_id=1862
