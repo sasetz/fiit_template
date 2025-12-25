@@ -163,7 +163,6 @@
   show heading: it => block({
     if style != "pagecount" {
       if style != "compact" {
-        v(0.25cm)
         set text(1.1em, weight: "semibold")
         numbering(it.numbering, ..counter(heading).at(it.location()))
         h(0.3cm)
@@ -183,7 +182,13 @@
       set text(1.6em, weight: if is-legacy { "medium" } else { "bold" })
       set par(first-line-indent: 0em)
 
-      pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
+      {
+        set page(header: none, numbering: none)
+        pagebreak(to: if use-binding { "odd" } else { none }, weak: true)
+      }
+      if counter(heading).get().at(0) == 1 {
+        counter(page).update(1)
+      }
       if it.numbering == _appendix-numbering and not is-legacy {
         counter(page).update(1)
       }
