@@ -21,6 +21,8 @@
   author: "Jožko Mrkvička",
   // ID that you copied from AIS
   id: "FIIT-12345-123456",
+  // department of your work
+  department: "upai",
   // full name of your thesis supervisor
   supervisor: "prof. Jozef Mrkva, PhD.",
   // supported values: "en", "sk"
@@ -296,6 +298,9 @@
   counter(page).update(1)
   ////////////////////////////////
   // title page
+  assert(type(department) == str and (department == "upai" or department == "iise"),
+    message: "Please provide one of the following departments: 'upai' or 'iise'"
+  )
   if style != "pagecount" {
     title-page(
       id: id,
@@ -309,7 +314,7 @@
       footer: (
         (left: fields.program, right: values.program.informatics),
         (left: fields.field, right: values.field.informatics),
-        (left: fields.department, right: values.department.upai),
+        (left: fields.department, right: values.department.at(department)),
         ..supervisor-footer,
       ),
       date: [#values.month.at(month) #current-date.display("[year]")],

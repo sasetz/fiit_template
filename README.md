@@ -80,6 +80,7 @@ Don't forget to intialize a Git repository and backup your work somewhere!
 | supervisor | `str` or `dictionary` of `array` | `"prof. Jozef Mrkva, PhD."` | your supervisor | `str` if you have one supervisor, localized `dictionary` if many |
 | abstract | `dict` | `( sk: lorem(150), en: lorem(150) )` | abstract in two languages | keys are the language, with `str` as values |
 | id | `str` | `"FIIT-12345-123456"` | id from AIS | |
+| department | enum(`str`) | `"upai"` | department of your thesis | `"upai"`, `"iise"` |
 | lang | enum(`str`) | `"en"` | language of your thesis | `"sk"`, `"en"` |
 | month | `int` | `5` | month of the hand-in | 1-12 |
 | current-date | `datetime` | `datetime.today()` | declaration date and year of the work | |
@@ -101,6 +102,8 @@ an unsupported language, the template will generate a compile error.
 Next, you should insert general info for your thesis: `title`, `author`, `id`,
 `supervisor`. They are pretty straight-forward, so just write the correct data
 into them. `id` is your thesis ID number from the informational system.
+`department` determines which department you work from. Usually it's UPAI
+(`"upai"`), but you can also change it to `"iise"`.
 
 `supervisor` supports two options: either one supervisor's name as a string,
 or multiple supervisors with localization. The latter option is achieved using
@@ -267,6 +270,9 @@ repository. If anything goes wrong, feel free to open a new issue or contact
 me directly.
 
 # Changelog
+
+### v1.1.1
+- added `department`
 
 ### v1.1.0
 
